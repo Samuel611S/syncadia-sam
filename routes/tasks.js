@@ -1,6 +1,6 @@
 /**
- * users.js
- * These are example routes for user management
+ * tasks.js
+ * These are example routes for task management
  * This shows how to correctly structure your routes for the project
  * and the suggested pattern for retrieving data by executing queries
  *
@@ -14,9 +14,9 @@ const router = express.Router();
 /**
  * @desc Display all the users
  */
-router.get("/list-users", (req, res, next) => {
+router.get("/", (req, res, next) => {
     // Define the query
-    query = "SELECT * FROM users"
+    query = "SELECT * FROM tasks"
 
     // Execute the query and render the page with the results
     global.db.all(query, 
@@ -24,7 +24,7 @@ router.get("/list-users", (req, res, next) => {
             if (err) {
                 next(err); //send the error on to the error handler
             } else {
-                res.json(rows); // render page as simple json
+                res.render("task-manager.ejs", rows);
             }
         }
     );
@@ -34,7 +34,7 @@ router.get("/list-users", (req, res, next) => {
  * @desc Displays a page with a form for creating a user record
  */
 router.get("/add-user", (req, res) => {
-    res.render("add-user.ejs");
+    res.render("add-user.ejs", );
 });
 
 /**

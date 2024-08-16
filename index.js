@@ -30,9 +30,9 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
-// Add all the route handlers in usersRoutes to the app under the path /users
-const usersRoutes = require('./routes/users');
-app.use('/users', usersRoutes);
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const taskRoutes = require('./routes/tasks');
+app.use('/task-manager', taskRoutes);
 
 
 // Make the web application listen for HTTP requests
