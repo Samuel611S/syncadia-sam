@@ -44,9 +44,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">To-Do List</h5>
                                 <ul class="list-unstyled">
-                                    <li><input type="checkbox" id="todo1"> <label for="todo1">Task 1</label></li>
-                                    <li><input type="checkbox" id="todo2"> <label for="todo2">Task 2</label></li>
-                                    <li><input type="checkbox" id="todo3"> <label for="todo3">Task 3</label></li>
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.status === 'TODO') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
                                 </ul>
                             </div>
                         </div>
@@ -56,9 +58,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">In-Progress</h5>
                                 <ul class="list-unstyled">
-                                    <li><input type="checkbox" id="progress1"> <label for="progress1">Task 1</label></li>
-                                    <li><input type="checkbox" id="progress2"> <label for="progress2">Task 2</label></li>
-                                    <li><input type="checkbox" id="progress3"> <label for="progress3">Task 3</label></li>
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.status === 'IN-PROGRESS') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
                                 </ul>
                             </div>
                         </div>
@@ -68,9 +72,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">Complete</h5>
                                 <ul class="list-unstyled">
-                                    <li><input type="checkbox" id="complete1" checked> <label for="complete1">Task 1</label></li>
-                                    <li><input type="checkbox" id="complete2" checked> <label for="complete2">Task 2</label></li>
-                                    <li><input type="checkbox" id="complete3" checked> <label for="complete3">Task 3</label></li>
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.status === 'COMPLETE') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
                                 </ul>
                             </div>
                         </div>
