@@ -24,7 +24,7 @@ router.get("/", (req, res, next) => {
             if (err) {
                 next(err); //send the error on to the error handler
             } else {
-                res.render("task-manager.ejs", rows);
+                res.render("task-manager.ejs", { tasks: rows });
             }
         }
     );
