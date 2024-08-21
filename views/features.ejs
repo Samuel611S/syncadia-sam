@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syncadia</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+<!--    icons-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
     <link href="styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="default-theme">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="logo.png" alt="Logo" class="logo"></a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Task Manager</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Quiz</a>
-                </li>
+<nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><img src="logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Task Manager</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Take a Quiz Now!</a></li>
             </ul>
+            <div class="theme-switcher">
+                <label for="theme-select">Choose a Theme:</label>
+                <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
+                    <option value="default-theme">Default</option>
+                    <option value="dark-theme">Dark</option>
+                    <option value="pink-theme">Pink</option>
+                    <option value="teal-theme">Teal</option>
+                </select>
+            </div>
         </div>
     </nav>
 
@@ -40,13 +47,13 @@
                 <a href="#" class="btn btn-outline-dark">Learn More</a>
             </div>
             <div class="col-md-6">
-                <img src="task-icon.png" alt="Task Icon" class="img-fluid">
+                <img src="Images/TaskIcon.png" alt="Task Icon" class="img-fluid">
             </div>
         </div>
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <img src="token-icon.png" alt="Token Icon" class="img-fluid">
+                <img src="Images/CoinIcon.png" alt="Token Icon" class="img-fluid">
             </div>
             <div class="col-md-6 text-left">
                 <h2>Game Token</h2>
@@ -55,9 +62,10 @@
             </div>
         </div>
     </div>
+    <hr>
 
-    <!-- Footer -->
-    <footer class="bg-light py-4">
+     <!-- Footer -->
+    <footer class="footer py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -95,9 +103,22 @@
             </div>
         </div>
     </footer>
-
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const themeSelect = document.getElementById("theme-select");
+
+            themeSelect.addEventListener("change", function() {
+                document.body.className = ''; // Remove existing classes
+                document.body.classList.add(themeSelect.value);
+            });
+
+            // Set the initial theme based on the selected value
+            document.body.classList.add(themeSelect.value);
+        });
+    </script>
 </body>
 </html>
