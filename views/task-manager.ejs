@@ -186,3 +186,269 @@
 
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncadia</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body class="default-theme">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><img src="logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Quiz</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+            </ul>
+            <div class="timer-container">
+                <button class="btn btn-primary my-2 my-sm-0" id="start-timer-btn" type="button">Start Timer</button>
+                <!-- Visible Timer Display -->
+                <div id="visible-timer" class="timer-box alert alert-primary mt-2" role="alert" style="display: none;">
+                    <span id="time-remaining"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher container my-3">
+        <label for="theme-select">Choose a Theme:</label>
+        <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
+            <option value="default-theme">Default</option>
+            <option value="dark-theme">Dark</option>
+            <option value="pink-theme">Pink</option>
+            <option value="teal-theme">Teal</option>
+        </select>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#">Search</a>
+                    <a class="nav-link" href="#" id="open-notepad">Notes</a>
+                    <a class="nav-link" href="#">Calendar</a>
+                    <a class="nav-link" href="#">Filters & Priorities</a>
+                    <a class="nav-link" href="#">My Projects</a>
+                    <a class="nav-link" href="#">Add Team</a>
+                    <a class="nav-link" href="#">Deleted Notes</a>
+                </nav>
+                <button class="btn btn-dark mt-3">Give us feedback!</button>
+            </div>
+            <div class="col-md-10 main-content">
+                <h2>Start Planning!</h2>
+                <p class="lead">Subheading to introduce testimonials</p>
+
+                <!-- Timer modal -->
+                <div class="modal fade" id="timerModal" tabindex="-1" aria-labelledby="timerModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="timerModalLabel">Set Timer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="timerInput">Set timer in minutes:</label>
+                                <input type="number" id="timerInput" class="form-control" placeholder="e.g., 30">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="start-timer">Start</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">To-Do List</h5>
+                                <ul class="list-unstyled">
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.task_status === 'TODO') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">In-Progress</h5>
+                                <ul class="list-unstyled">
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.task_status === 'IN-PROGRESS') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Complete</h5>
+                                <ul class="list-unstyled">
+                                    <% tasks.forEach(function(task) { %>
+                                        <% if (task.task_status === 'COMPLETE') { %>
+                                            <li><%= task.content %></li>
+                                        <% } %>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Progress</h2>
+                <p class="lead">Subheading to introduce testimonials</p>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <h5>TODO</h5>
+                        <div class="progress-circle" data-percentage="65">
+                            <div class="circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart pink">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle" stroke-dasharray="<%= Math.round((tasks.filter(task => task.task_status === 'TODO').length / tasks.length) * 100) %>, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <text x="18" y="20.35" class="percentage"><%= Math.round((tasks.filter(task => task.task_status === 'TODO').length / tasks.length) * 100) %>%</text>
+                                </svg>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>IN-PROGRESS</h5>
+                        <div class="progress-circle" data-percentage="86">
+                            <div class="circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart pink">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle" stroke-dasharray="<%= Math.round(( tasks.filter(task => task.task_status === 'IN-PROGRESS').length / tasks.length) * 100) %>, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <text x="18" y="20.35" class="percentage"><%= Math.round(( tasks.filter(task => task.task_status === 'IN-PROGRESS').length / tasks.length) * 100) %>%</text>
+                                </svg>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>COMPLETE</h5>
+                        <div class="progress-circle" data-percentage="52">
+                            <div class="circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart pink">
+                                    <path class="circle-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle" stroke-dasharray="<%= Math.round(( tasks.filter(task => task.task_status === 'COMPLETE').length / tasks.length) * 100) %>, 100" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <text x="18" y="20.35" class="percentage"><%= Math.round(( tasks.filter(task => task.task_status === 'COMPLETE').length / tasks.length) * 100) %>%</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notepad Modal -->
+    <div class="modal fade" id="notepadModal" tabindex="-1" aria-labelledby="notepadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notepadModalLabel">Write your notes here!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="toolbar mb-2">
+                        <button class="btn btn-sm btn-light" onclick="execCommand('bold')"><b>B</b></button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('italic')"><i>I</i></button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('underline')"><u>U</u></button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('strikeThrough')"><s>S</s></button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyLeft')">Left</button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyCenter')">Center</button>
+                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyRight')">Right</button>
+            
+                    </div>
+                    <div id="notepadContent" class="border p-3" contenteditable="true" style="height: 300px; width: 100%; max-width: 600px; margin: auto; overflow-y: auto;">
+                        <!-- User can write notes here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+     <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Syncadia</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Frequently asked questions</a></li>
+                        <li><a href="#">Help center</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Join our team!</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Watch Demo Here!</a></li>
+                        <li><a href="#">Upgrade</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

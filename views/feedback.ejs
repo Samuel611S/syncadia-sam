@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncadia - Feedback</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body class="default-theme">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><img src="logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Task Manager</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Take a Quiz Now!</a></li>
+            </ul>
+            <div class="theme-switcher">
+                <label for="theme-select">Choose a Theme:</label>
+                <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
+                    <option value="default-theme">Default</option>
+                    <option value="dark-theme">Dark</option>
+                    <option value="pink-theme">Pink</option>
+                    <option value="teal-theme">Teal</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>We Value Your Feedback</h2>
+        <p class="lead">Please share your thoughts and suggestions with us.</p>
+
+        <form id="feedback-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="feedback">Feedback:</label>
+                <textarea id="feedback" class="form-control" rows="5" placeholder="Enter your feedback"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer py-4" style="margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Syncadia</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Frequently asked questions</a></li>
+                        <li><a href="#">Help center</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Join our team!</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Watch Demo Here!</a></li>
+                        <li><a href="#">Upgrade</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
