@@ -16,34 +16,59 @@ const router = express.Router();
  * @desc Display all the tasks
  */
 
+// router.get('/', (req, res) => {
+//     const sql = "SELECT * FROM Tasks"; // Ensure this table name is correct
+//     global.db.all(sql, [], (err, rows) => {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).send("Database error");
+//         } else {
+//             console.log(rows); // Log rows to verify the data
+
+//             const totalTasks = rows.length;
+//             const todoTasks = rows.filter(task => task.status === 'TODO').length;
+//             const inProgressTasks = rows.filter(task => task.status === 'IN-PROGRESS').length;
+//             const completedTasks = rows.filter(task => task.status === 'COMPLETE').length;
+
+//             console.log(`Total: ${totalTasks}, TODO: ${todoTasks}, IN-PROGRESS: ${inProgressTasks}, COMPLETE: ${completedTasks}`); // Log counts
+
+//             const progress = {
+//                 todo: totalTasks > 0 ? (todoTasks / totalTasks) * 100 : 0,
+//                 inProgress: totalTasks > 0 ? (inProgressTasks / totalTasks) * 100 : 0,
+//                 completed: totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0
+//             };
+
+//             console.log(`Progress: ${JSON.stringify(progress)}`); // Log progress to check calculations
+
+//             res.render('task-manager', { tasks: rows, progress });
+//         }
+//     });
+// });
 router.get('/', (req, res) => {
-    const sql = "SELECT * FROM tasks";
+    const sql = "SELECT * FROM Tasks";
     global.db.all(sql, [], (err, rows) => {
         if (err) {
             console.error(err);
             res.status(500).send("Database error");
         } else {
             const totalTasks = rows.length;
+            const todoTasks = rows.filter(task => task.status === 'TODO').length;
             const inProgressTasks = rows.filter(task => task.status === 'IN-PROGRESS').length;
             const completedTasks = rows.filter(task => task.status === 'COMPLETE').length;
+
             const progress = {
+                todo: totalTasks ? (todoTasks / totalTasks) * 100 : 0,
                 inProgress: totalTasks ? (inProgressTasks / totalTasks) * 100 : 0,
-                completed: totalTasks ? (completedTasks / totalTasks) * 100 : 0,
+                completed: totalTasks ? (completedTasks / totalTasks) * 100 : 0
             };
+
+
             res.render('task-manager', { tasks: rows, progress });
         }
     });
 });
-const tasks = [
-    { content: 'Task 1', status: 'TODO' },
-    { content: 'Task 2', status: 'COMPLETE' },
-    { content: 'Task 3', status: 'IN-PROGRESS' },
-];
 
-router.get('/task-manager', (req, res) => {
-    // Pass the tasks array to the EJS template
-    res.render('task-manager', { tasks: tasks });
-});
+
 
 router.get('/home', (req,res)=>{
     res.render('home')
@@ -55,7 +80,9 @@ router.get('/quiz', (req,res)=>{
 router.get('/features', (req,res)=>{
     res.render('features')
 })
-
+router.get('/task-manager',(req,res)=>{
+    res.redirect('/')
+})
 /**
  * @desc Displays a page with a form for creating a user record
  */
