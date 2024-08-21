@@ -25,14 +25,11 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
-// Handle requests to the home page 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
+
 
 // Add all the route handlers in taskRoutes to the app under the path /tasks
 const taskRoutes = require('./routes/tasks');
-app.use('/task-manager', taskRoutes);
+app.use('/', taskRoutes);
 
 
 // Make the web application listen for HTTP requests

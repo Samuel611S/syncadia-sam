@@ -8,9 +8,14 @@
 </head>
 <body>
     <h1>Add User</h1>
-    <form action="add-user" method="post">
-        <p>User: <input id="user" type="text" name="user_name" /></p>
-        <button type="submit">Create a new user record</button>
+    <form action="/task-manager/add-user" method="POST">
+        <label for="user_name">User Name:</label>
+        <input type="text" name="user_name" required>
+        <label for="email">Email: </label>
+        <input type="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Add User</button>
     </form>
 </body>
 </html>
