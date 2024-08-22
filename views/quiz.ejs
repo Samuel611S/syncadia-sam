@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
-<!--    icons-->
+<!--icons-->
     
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
@@ -34,7 +34,7 @@
 
   <div class="container mt-4">
     <h2 class="mb-3">What Productivity Method Works Best For You?</h2>
-    <p>Take our quick quiz to find out how you can enhance your productivity! blah blah</p>
+    <p>Take our quick quiz to find out how you can enhance your productivity!</p>
     <button class="btn btn-sec mb-4">Take Quiz!</button>
 
     <h4 class="mb-3">Want To Explore On Your Own?</h4>
@@ -64,6 +64,147 @@
             <p class="card-text">Description of paper 3 content here...</p>
             <a href="#" class="btn btn-primary">View Details</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="quizModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quizModalLabel">Productivity Quiz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="quizForm">
+              <div class="form-group">
+                  <label for="question1">1. How do you typically plan your day?</label>
+                  <select id="question1" name="question1" class="form-control">
+                      <option value="option1">A. I create a detailed to-do list.</option>
+                      <option value="option2">B. I have a general idea of what I want to accomplish.</option>
+                      <option value="option3">C. I plan as I go.</option>
+                      <option value="option4">D. I rarely plan my day.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question2">2. What is your approach to handling large tasks?</label>
+                  <select id="question2" name="question2" class="form-control">
+                      <option value="option1">A. Break them down into smaller tasks.</option>
+                      <option value="option2">B. Tackle them all at once.</option>
+                      <option value="option3">C. Delegate parts of the task to others.</option>
+                      <option value="option4">D. Procrastinate until the last minute.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question3">3. How do you prioritize your tasks?</label>
+                  <select id="question3" name="question3" class="form-control">
+                      <option value="option1">A. Based on deadlines.</option>
+                      <option value="option2">B. By importance and urgency.</option>
+                      <option value="option3">C. Whichever seems easiest to complete.</option>
+                      <option value="option4">D. I don’t have a specific prioritization method.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question4">4. How do you stay focused during work?</label>
+                  <select id="question4" name="question4" class="form-control">
+                      <option value="option1">A. I minimize distractions and stay on task.</option>
+                      <option value="option2">B. I take short breaks to stay refreshed.</option>
+                      <option value="option3">C. I work in bursts of high productivity.</option>
+                      <option value="option4">D. I struggle to stay focused.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question5">5. How do you handle unexpected interruptions?</label>
+                  <select id="question5" name="question5" class="form-control">
+                      <option value="option1">A. I quickly address them and return to work.</option>
+                      <option value="option2">B. I set aside time later to deal with them.</option>
+                      <option value="option3">C. I try to multitask.</option>
+                      <option value="option4">D. They often derail my progress.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question6">6. What is your preferred method of task management?</label>
+                  <select id="question6" name="question6" class="form-control">
+                      <option value="option1">A. Using digital tools or apps.</option>
+                      <option value="option2">B. Writing things down on paper.</option>
+                      <option value="option3">C. Keeping track mentally.</option>
+                      <option value="option4">D. I don’t use any specific method.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question7">7. How do you deal with procrastination?</label>
+                  <select id="question7" name="question7" class="form-control">
+                      <option value="option1">A. I use techniques like the Pomodoro Technique.</option>
+                      <option value="option2">B. I set deadlines to push myself.</option>
+                      <option value="option3">C. I break tasks into smaller, manageable pieces.</option>
+                      <option value="option4">D. I often struggle to overcome procrastination.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question8">8. What time of day do you feel most productive?</label>
+                  <select id="question8" name="question8" class="form-control">
+                      <option value="option1">A. Early morning.</option>
+                      <option value="option2">B. Late morning.</option>
+                      <option value="option3">C. Afternoon.</option>
+                      <option value="option4">D. Evening or night.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question9">9. How do you track your progress on long-term projects?</label>
+                  <select id="question9" name="question9" class="form-control">
+                      <option value="option1">A. I set milestones and track them regularly.</option>
+                      <option value="option2">B. I review progress weekly.</option>
+                      <option value="option3">C. I track progress sporadically.</option>
+                      <option value="option4">D. I don’t track progress regularly.</option>
+                  </select>
+              </div>
+      
+              <div class="form-group">
+                  <label for="question10">10. What motivates you to complete tasks?</label>
+                  <select id="question10" name="question10" class="form-control">
+                      <option value="option1">A. The satisfaction of completing something.</option>
+                      <option value="option2">B. External rewards or recognition.</option>
+                      <option value="option3">C. The fear of missing deadlines.</option>
+                      <option value="option4">D. I struggle with motivation.</option>
+                  </select>
+              </div>
+            <!-- Add more questions here -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">Quiz Submitted!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="resultMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -113,17 +254,82 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const themeSelect = document.getElementById("theme-select");
-
-          themeSelect.addEventListener("change", function() {
-              document.body.className = ''; // Remove existing classes
-              document.body.classList.add(themeSelect.value);
-          });
-
-          // Set the initial theme based on the selected value
-          document.body.classList.add(themeSelect.value);
+    document.addEventListener("DOMContentLoaded", function() {
+      const themeSelect = document.getElementById("theme-select");
+      const resultMessage = document.getElementById("resultMessage");
+      
+      // Handle theme selection
+      themeSelect.addEventListener("change", function() {
+        document.body.className = ''; // Remove existing classes
+        document.body.classList.add(themeSelect.value);
       });
+      
+      // Show quiz modal when button is clicked
+      const takeQuizBtn = document.querySelector(".btn-sec");
+      takeQuizBtn.addEventListener("click", function() {
+        $('#quizModal').modal('show'); // Use jQuery to show the modal
+      });
+      
+      // Handle quiz form submission
+      const quizForm = document.getElementById("quizForm");
+      quizForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        const formElements = quizForm.elements; // Get all form elements
+        let score = 0;
+
+        // Iterate over form elements
+        for (let i = 0; i < formElements.length; i++) {
+            const element = formElements[i];
+            if (element.tagName === "SELECT") {
+                const value = element.value;
+                console.log("Form value:", value); // Debugging to see form values
+
+                switch (value) {
+                    case "option1":
+                        score += 10;
+                        break;
+                    case "option2":
+                        score += 5;
+                        break;
+                    case "option3":
+                        score += 3;
+                        break;
+                    case "option4":
+                        score += 1;
+                        break;
+                    default:
+                        console.log("Unexpected option value:", value);
+                }
+            }
+        }
+
+        // Log final score for debugging
+        console.log("Final Score:", score);
+
+        let result;
+        if (score > 70) {
+          result = "You seem to have a highly organized productivity method! Our app is a great fit for you.";
+        } else if (score > 40) {
+          result = "You have a decent productivity method. Our app might help you improve your efficiency.";
+        } else {
+          result = "You may need to explore different productivity methods. Our app offers tools that could help.";
+        }
+        // Ensure the result message container exists
+        if (resultMessage) {
+          resultMessage.innerText = result;
+        } else {
+          console.error("Result message container not found!");
+        }
+        
+        $('#quizModal').modal('hide'); // Hide the quiz modal
+        $('#resultModal').modal('show'); // Show the result modal
+      });
+      
+      // Set the initial theme based on the selected value
+      document.body.classList.add(themeSelect.value);
+    });
   </script>
+  
 </body>
 </html>
