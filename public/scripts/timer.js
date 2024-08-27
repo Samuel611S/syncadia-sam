@@ -1,19 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const themeSelect = document.getElementById("theme-select");
     const startTimerBtn = document.getElementById("start-timer-btn");
     const timerModal = new bootstrap.Modal(document.getElementById('timerModal'), {});
     const timerInput = document.getElementById("timerInput");
     const startTimer = document.getElementById("start-timer");
     const visibleTimer = document.getElementById("visible-timer");
     const timeRemainingSpan = document.getElementById("time-remaining");
-
-    themeSelect.addEventListener("change", function() {
-        document.body.className = ''; // Remove existing classes
-        document.body.classList.add(themeSelect.value);
-    });
-
-    // Set the initial theme based on the selected value
-    document.body.classList.add(themeSelect.value);
 
     startTimerBtn.addEventListener("click", function() {
         // Show the timer modal when the "Start Timer" button is clicked
@@ -65,17 +56,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.execCommand = execCommand; // Make execCommand globally accessible
 });
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const themeSelect = document.getElementById("theme-select");
-
-    themeSelect.addEventListener("change", function() {
-        document.body.className = ''; // Remove existing classes
-        document.body.classList.add(themeSelect.value);
-    });
-
-    // Set the initial theme based on the selected value
-    document.body.classList.add(themeSelect.value);
-});
-

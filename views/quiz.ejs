@@ -3,39 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-<!--icons-->
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <!--    icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="components/theme-switcher.js"></script>
+  <script src="components/nav-menu.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="scripts/timer.js"></script>
+  <script src="scripts/theme-selector.js"></script>
+  <script src="scripts/quiz.js"></script>
   <title>Quiz - Syncadia</title>
 </head>
 <body class="default-theme">
   <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="/task-manager"><img src="/Images/logo.webp" alt="Logo"></a>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/task-manager">Task Manager</a></li>
-                <li class="nav-item"><a class="nav-link" href="/features">Features</a></li>
-            </ul>
-            <div class="theme-switcher">
-                <label for="theme-select">Choose a Theme:</label>
-                <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
-                    <option value="default-theme">Default</option>
-                    <option value="dark-theme">Dark</option>
-                    <option value="pink-theme">Pink</option>
-                    <option value="teal-theme">Teal</option>
-                </select>
-            </div>
+            <nav-menu></nav-menu>
         </div>
+        <theme-switcher></theme-switcher>
     </nav>
 
   <div class="container mt-4">
     <h2 class="mb-3">What Productivity Method Works Best For You?</h2>
     <p>Take our quick quiz to find out how you can enhance your productivity!</p>
-    <button class="btn btn-sec mb-4">Take Quiz!</button>
+    <button id="quizButton" class="btn btn-sec mb-4">Take Quiz!</button>
 
     <h4 class="mb-3">Want To Explore On Your Own?</h4>
     <div class="row">
@@ -211,125 +203,10 @@
   </div>
 
    <!-- Footer -->
-    <footer class="footer py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>Syncadia</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Resources</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Frequently asked questions</a></li>
-                        <li><a href="#">Help center</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Company</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Join our team!</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Features</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Watch Demo Here!</a></li>
-                        <li><a href="#">Upgrade</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+   <custom-footer></custom-footer>
     
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const themeSelect = document.getElementById("theme-select");
-      const resultMessage = document.getElementById("resultMessage");
-      
-      // Handle theme selection
-      themeSelect.addEventListener("change", function() {
-        document.body.className = ''; // Remove existing classes
-        document.body.classList.add(themeSelect.value);
-      });
-      
-      // Show quiz modal when button is clicked
-      const takeQuizBtn = document.querySelector(".btn-sec");
-      takeQuizBtn.addEventListener("click", function() {
-        $('#quizModal').modal('show'); // Use jQuery to show the modal
-      });
-      
-      // Handle quiz form submission
-      const quizForm = document.getElementById("quizForm");
-      quizForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        
-        const formElements = quizForm.elements; // Get all form elements
-        let score = 0;
-
-        // Iterate over form elements
-        for (let i = 0; i < formElements.length; i++) {
-            const element = formElements[i];
-            if (element.tagName === "SELECT") {
-                const value = element.value;
-                console.log("Form value:", value); // Debugging to see form values
-
-                switch (value) {
-                    case "option1":
-                        score += 10;
-                        break;
-                    case "option2":
-                        score += 5;
-                        break;
-                    case "option3":
-                        score += 3;
-                        break;
-                    case "option4":
-                        score += 1;
-                        break;
-                    default:
-                        console.log("Unexpected option value:", value);
-                }
-            }
-        }
-
-        // Log final score for debugging
-        console.log("Final Score:", score);
-
-        let result;
-        if (score > 70) {
-          result = "You seem to have a highly organized productivity method! Our app is a great fit for you.";
-        } else if (score > 40) {
-          result = "You have a decent productivity method. Our app might help you improve your efficiency.";
-        } else {
-          result = "You may need to explore different productivity methods. Our app offers tools that could help.";
-        }
-        // Ensure the result message container exists
-        if (resultMessage) {
-          resultMessage.innerText = result;
-        } else {
-          console.error("Result message container not found!");
-        }
-        
-        $('#quizModal').modal('hide'); // Hide the quiz modal
-        $('#resultModal').modal('show'); // Show the result modal
-      });
-      
-      // Set the initial theme based on the selected value
-      document.body.classList.add(themeSelect.value);
-    });
-  </script>
-  
 </body>
 </html>
