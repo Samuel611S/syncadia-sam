@@ -28,19 +28,44 @@ router.get("/task-manager", (req, res) => {
         (task) => task.status === "IN-PROGRESS"
       ).length;
       const completedTasks = rows.filter(
-        (task) => task.status === "COMPLETE"
+        (task) => task.status === "DONE"
       ).length;
 
       const progress = {
         todo: totalTasks ? (todoTasks / totalTasks) * 100 : 0,
         inProgress: totalTasks ? (inProgressTasks / totalTasks) * 100 : 0,
-        completed: totalTasks ? (completedTasks / totalTasks) * 100 : 0,
+        done: totalTasks ? (completedTasks / totalTasks) * 100 : 0,
       };
 
       res.render("task-manager", { tasks: rows, progress });
     }
   });
 });
+
+router.put('/tasks/:id', (req, res) => {
+  const { status: newStatus } = req.body;
+  const taskId = req.params.id;
+
+  if (!taskId || !newStatus) {
+      return res.status(400).json({ error: 'Task ID and new status are required' });
+  }
+
+  const sql = `UPDATE tasks SET status = ? WHERE id = ?`;
+  const params = [newStatus, taskId];
+
+  db.run(sql, params, (err) => {
+      if (err) {
+          console.error('Error updating task status:', err.message);
+          return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      if (this.changes === 0) {
+          return res.status(404).json({ error: 'Task not found' });
+      }
+
+      return res.status(200).json({ message: 'Task status updated successfully' });
+  });
+})
 
 router.get("/home", (req, res) => {
   res.render("home");

@@ -29,8 +29,9 @@ CREATE TABLE IF NOT EXISTS Tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     project_id INT,
+    title TEXT NOT NULL,
     content TEXT NOT NULL,
-    status VARCHAR(20) NOT NULL CHECK (status IN('TODO', 'IN-PROGRESS', 'COMPLETE')),
+    status VARCHAR(20) NOT NULL CHECK (status IN('TODO', 'IN-PROGRESS', 'DONE')),
     due_date DATE,
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (project_id) REFERENCES Projects(id)
@@ -123,9 +124,9 @@ CREATE TABLE IF NOT EXISTS QuizResults (
 );
 
 -- Setup tasks
-INSERT INTO Tasks (content, status) VALUES ('this is my task content', 'TODO'); 
-INSERT INTO Tasks (content, status) VALUES ('this is my task content', 'IN-PROGRESS'); 
-INSERT INTO Tasks (content, status) VALUES ('this is my task content', 'COMPLETE');
+INSERT INTO Tasks (id, title, content, status) VALUES (1, 'title', 'this is my task content', 'TODO'); 
+INSERT INTO Tasks (id, title, content, status) VALUES (2, 'title', 'this is my task content', 'IN-PROGRESS'); 
+INSERT INTO Tasks (id, title, content, status) VALUES (3, 'title', 'this is my task content', 'DONE');
 
 
 COMMIT;

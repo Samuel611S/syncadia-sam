@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const storedTheme = localStorage.getItem('theme');
     const themeSelect = document.getElementById("theme-select");
 
-    themeSelect.value = storedTheme ?? "Default";
+    themeSelect.value = storedTheme ?? themeSelect[0].value;
 
     themeSelect.addEventListener("change", function() {
         document.body.className = ''; // Remove existing classes
