@@ -12,17 +12,19 @@
     <script src="components/timer.js"></script>
     <script src="components/nav-menu.js"></script>
     <script src="components/footer.js"></script>
-    <script src="scripts/drag.js" type="module"></script>
-    <script src="scripts/task-manager.js" type="module"></script>
+    <script src="scripts/drag.js"></script>
+    <script src="scripts/task-manager.js"></script>
     <script src="scripts/timer.js"></script>
     <script src="scripts/theme-selector.js"></script>
     <script src="components/progress-indicator.js"></script>
+    <script src="components/task-editing-modal.js"></script>
     <script src="components/task-column.js"></script>
+    <script src="components/timer-modal.js"></script>
 </head>
 
 <body class="default-theme">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/home"><img src="/Images/logo.webp" alt="Logo"></a>
+        <a class="navbar-brand" href="/home"><img src="/Images/logo.png" alt="Logo"></a>
         <div class="collapse navbar-collapse">
             <nav-menu></nav-menu>
         </div>
@@ -47,37 +49,12 @@
                 <button class="btn btn-dark mt-3">Give us feedback!</button>
             </div>
             <div class="col-md-10 main-content">
-                <h2>Start Planning!</h2>
-                <p class="lead">Subheading to introduce testimonials</p>
-
-                <!-- Timer modal -->
-                <div class="modal fade" id="timerModal" tabindex="-1" aria-labelledby="timerModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="timerModalLabel">Set Timer</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="timerInput">Set timer in minutes:</label>
-                                <input type="number" id="timerInput" class="form-control" placeholder="e.g., 30">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="start-timer">Start</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <h2 class="mb-5">Start Planning!</h2>
                 <div class="row mb-5">
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="DONE"></task-column>
                 </div>
-
                 <h2>Progress</h2>
                 <p class="lead">Subheading to introduce testimonials</p>
                 <div class="row text-center">
@@ -90,36 +67,11 @@
     </div>
 
     <!-- Notepad Modal -->
-    <div class="modal fade" id="notepadModal" tabindex="-1" aria-labelledby="notepadModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="notepadModalLabel">Write your notes here!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="toolbar mb-2">
-                        <button class="btn btn-sm btn-light" onclick="execCommand('bold')"><b>B</b></button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('italic')"><i>I</i></button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('underline')"><u>U</u></button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('strikeThrough')"><s>S</s></button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyLeft')">Left</button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyCenter')">Center</button>
-                        <button class="btn btn-sm btn-light" onclick="execCommand('justifyRight')">Right</button>
-            
-                    </div>
-                    <div id="notepadContent" class="border p-3" contenteditable="true" style="height: 300px; width: 100%; max-width: 600px; margin: auto; overflow-y: auto;">
-                        <!-- User can write notes here -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <notepad-modal></notepad-modal>
+    <!-- Timer modal -->
+    <timer-modal></timer-modal>
+    <!-- Task editing modal -->
+    <task-editing-modal></task-editing-modal>
 
     <hr>
     <!-- Footer -->
