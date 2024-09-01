@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const startTimer = document.getElementById("start-timer");
     const visibleTimer = document.getElementById("visible-timer");
     const timeRemainingSpan = document.getElementById("time-remaining");
+    const cancelBtn = document.getElementById('timer-cancel-btn');
 
     startTimerBtn.addEventListener("click", function() {
         // Show the timer modal when the "Start Timer" button is clicked
@@ -22,11 +23,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    let timerInterval;
+
     function startCountdown(minutes) {
         let timeRemaining = minutes * 60; // Convert minutes to seconds
-        visibleTimer.style.display = "block"; // Show the visible timer
+        visibleTimer.style.display = "inline-block"; // Show the visible timer
+        startTimerBtn.style.display = "none";
 
-        const timerInterval = setInterval(function() {
+        timerInterval = setInterval(function() {
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
 
@@ -36,11 +40,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 clearInterval(timerInterval);
                 alert("Time's up!");
                 visibleTimer.style.display = "none"; // Hide the timer after time is up
+                startTimerBtn.style.display = "inline-block";
             } else {
                 timeRemaining--;
             }
         }, 1000);
     }
+
+    cancelBtn.addEventListener('click', function() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            visibleTimer.style.display = 'none';
+            startTimerBtn.style.display = "inline-block";
+        }
+    });
 
     // Notepad Modal Logic
     const notepadModal = new bootstrap.Modal(document.getElementById('notepadModal'), {});

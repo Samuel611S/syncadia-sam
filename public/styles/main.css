@@ -286,6 +286,23 @@ footer ul li a:hover {
     margin-right: 50px;
 }
 
+#timer-cancel-btn {
+    float: right;
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#timer-cancel-btn svg {
+    width: 50%;
+    height: auto;
+    display: block;
+}
+
+
 /* Notepad Styles */
 .toolbar button,
 .toolbar select
@@ -318,4 +335,18 @@ footer ul li a:hover {
 
 .card-column.drag-over {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Style the delete button */
+.delete-task-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Optional: adjust the size of the SVG */
+.delete-task-btn svg {
+    width: 20px;
+    height: 20px;
 }

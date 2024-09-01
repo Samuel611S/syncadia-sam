@@ -43,17 +43,31 @@ router.get("/task-manager", (req, res) => {
 });
 
 router.put('/tasks/:id', (req, res) => {
-  const { status: newStatus } = req.body;
+  const body = req.body;
   const taskId = req.params.id;
 
-  if (!taskId || !newStatus) {
-      return res.status(400).json({ error: 'Task ID and new status are required' });
+  if (!taskId || Object.keys(body) === 0) {
+      return res.status(400).json({ error: 'Task ID and Body are required' });
   }
 
-  const sql = `UPDATE tasks SET status = ? WHERE id = ?`;
-  const params = [newStatus, taskId];
+  const costructQueryUpdate = (body) => {
+    const keys = Object.keys(body)
+    const values = Object.values(body);
+  
+    return {
+      statement: `UPDATE tasks SET ${keys.map(key => key + ' = ?').join(', ')} WHERE id = ?`,
+      values
+    }
+  }
 
-  db.run(sql, params, (err) => {
+  const {
+    statement,
+    values
+  } = costructQueryUpdate(body)
+
+  const params = [...values, taskId];
+
+  db.run(statement, params, (err) => {
       if (err) {
           console.error('Error updating task status:', err.message);
           return res.status(500).json({ error: 'Internal server error' });
@@ -66,6 +80,65 @@ router.put('/tasks/:id', (req, res) => {
       return res.status(200).json({ message: 'Task status updated successfully' });
   });
 })
+
+router.post('/tasks', (req, res) => {
+  const body = req.body;
+
+  if (Object.keys(body) === 0) {
+      return res.status(400).json({ error: 'Body is required' });
+  }
+
+  // Construct the INSERT query
+  const constructQueryInsert = (body) => {
+    const keys = Object.keys(body);
+    const values = Object.values(body);
+
+    return {
+      statement: `INSERT INTO tasks (${keys.join(', ')}, status) VALUES (${keys.map(() => '?').join(', ')}, ?)`,
+      values
+    };
+  };
+
+  const { statement, values } = constructQueryInsert(body);
+
+  const params = [...values, 'TODO'];
+
+  db.run(statement, params, function(err) {
+      if (err) {
+          console.error('Error creating task status:', err.message);
+          return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      if (this.changes === 0) {
+          return res.status(404).json({ error: 'Task not found' });
+      }
+
+      return res.status(200).json({ taskId: this.lastID });
+  });
+})
+
+router.delete('/tasks/:id', (req, res) => {
+  const taskId = req.params.id;
+
+  if (!taskId) {
+    return res.status(400).json({ error: 'Task ID is required' });
+  }
+
+  const statement = 'DELETE FROM tasks WHERE id = ?';
+
+  db.run(statement, [taskId], function (err) {
+    if (err) {
+      console.error('Error deleting task:', err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    return res.status(200).json({ message: 'Task deleted successfully' });
+  });
+});
 
 router.get("/home", (req, res) => {
   res.render("home");

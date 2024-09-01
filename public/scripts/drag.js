@@ -1,9 +1,6 @@
-import TaskManager from './task-manager.js';
-
 document.addEventListener('DOMContentLoaded', function () {
     const columns = document.querySelectorAll('.card-column');
     let draggedItem = null;
-    const taskManager = new TaskManager();
 
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('dragstart', function () {
@@ -43,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.appendChild(draggedItem);
                 draggedItem.style.display = 'block';
 
-                const newStatus = this.id.replace('-column', '').toUpperCase();
+                const status = this.id.replace('-column', '').toUpperCase();
                 const taskId = draggedItem.getAttribute('data-task-id');
-                console.log('Task ID:', taskId, 'New Status:', newStatus);
+                console.log('Task ID:', taskId, 'New Status:', status);
 
-                taskManager.updateTask(taskId, 'status', newStatus);
-                taskManager.updateTasksProgressIndicators();
+                TaskManager.updateTask(taskId, { status });
+                TaskManager.updateTasksProgressIndicators();
             }
         });
     });
