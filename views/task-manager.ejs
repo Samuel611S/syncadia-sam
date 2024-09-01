@@ -7,7 +7,8 @@
     <title>Syncadia</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="styles/main.css" >
+    <link rel="stylesheet" href="styles/main.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
     <script src="components/theme-switcher.js"></script>
     <script src="components/timer.js"></script>
     <script src="components/nav-menu.js"></script>
@@ -20,6 +21,8 @@
     <script src="components/task-editing-modal.js"></script>
     <script src="components/task-column.js"></script>
     <script src="components/timer-modal.js"></script>
+    <script src="components/calendar-modal.js"></script>
+    <script src="scripts/calendar-handler.js"></script>
 </head>
 
 <body class="default-theme">
@@ -32,15 +35,13 @@
         <theme-switcher></theme-switcher>
     </nav>
 
-
-
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-2 sidebar">
                 <nav class="nav flex-column">
                     <a class="nav-link" href="#">Search</a>
                     <a class="nav-link" href="#" id="open-notepad">Notes</a>
-                    <a class="nav-link" href="#">Calendar</a>
+                    <a class="nav-link" href="#" id="open-calendar" data-toggle="modal" data-target="#calendarModal">Calendar</a>
                     <a class="nav-link" href="#">Filters & Priorities</a>
                     <a class="nav-link" href="#">My Projects</a>
                     <a class="nav-link" href="#">Add Team</a>
@@ -68,6 +69,8 @@
 
     <!-- Notepad Modal -->
     <notepad-modal></notepad-modal>
+    <!-- Calendar Modal -->
+    <calendar-modal></calendar-modal>
     <!-- Timer modal -->
     <timer-modal></timer-modal>
     <!-- Task editing modal -->
@@ -80,6 +83,24 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+
+    <!-- Initialize FullCalendar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#calendarModal').on('shown.bs.modal', function () {
+                var calendarEl = document.getElementById('calendar');
+                if (calendarEl && !calendarEl.classList.contains('fc')) {  // Ensure the calendar is not already initialized
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth'
+                    });
+                    calendar.render();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
