@@ -1,16 +1,16 @@
 class ProgressIndicator extends HTMLElement {
   // Note: probably should import it from task-column or rename them directly in db to avoid mappers
-    #TypeToLabelMapper = {
-      TODO: "To-Do",
-      "IN-PROGRESS": "In-Progress",
-      COMPLETE: "COMPLETE",
-    };
-    connectedCallback() {
-      const column = this.getAttribute("column") || "TODO";
-      const label = this.#TypeToLabelMapper[column];
-      const progress = this.getAttribute("progress") || 0;
-  
-      this.innerHTML = `
+  #TypeToLabelMapper = {
+    TODO: "To-Do",
+    "IN-PROGRESS": "In-Progress",
+    DONE: "DONE",
+  };
+  connectedCallback() {
+    const column = this.getAttribute("column") || "TODO";
+    const label = this.#TypeToLabelMapper[column];
+    const progress = this.getAttribute("progress") || 0;
+
+    this.innerHTML = `
                <div id="${column}-indicator">
                           <h5>${label}</h5>
                           <div class="progress-circle" data-percentage="${progress}">
@@ -30,8 +30,7 @@ class ProgressIndicator extends HTMLElement {
                           </div>
                       </div>
           `;
-    }
   }
-  
-  customElements.define("progress-indicator", ProgressIndicator);
-  
+}
+
+customElements.define("progress-indicator", ProgressIndicator);
