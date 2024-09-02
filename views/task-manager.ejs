@@ -43,25 +43,25 @@
                     <a class="nav-link" href="#" id="open-notepad">Notes</a>
                     <a class="nav-link" href="#" id="open-calendar" data-toggle="modal" data-target="#calendarModal">Calendar</a>
                     <a class="nav-link" href="#">Filters & Priorities</a>
-                    <a class="nav-link" href="#">My Projects</a>
+                    <a class="nav-link" href="/projects">My Projects</a>
                     <a class="nav-link" href="#">Add Team</a>
                     <a class="nav-link" href="#">Deleted Notes</a>
                 </nav>
-                <button class="btn btn-dark mt-3">Give us feedback!</button>
+                <button class="btn btn-dark mt-3" onclick="window.location.href='/feedback';">Give us feedback!</button>
             </div>
             <div class="col-md-10 main-content">
                 <h2 class="mb-5">Start Planning!</h2>
                 <div class="row mb-5">
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
-                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="DONE"></task-column>
+                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="COMPLETE"></task-column>
                 </div>
                 <h2>Progress</h2>
                 <p class="lead">Subheading to introduce testimonials</p>
                 <div class="row text-center">
                     <progress-indicator class="col-md-4" column="TODO" progress="<%= progress.todo %>"></progress-indicator>
                     <progress-indicator class="col-md-4" column="IN-PROGRESS" progress="<%= progress.inProgress %>"></progress-indicator>
-                    <progress-indicator class="col-md-4" column="DONE" progress="<%= progress.done %>"> </progress-indicator>
+                    <progress-indicator class="col-md-4" column="COMPLETE" progress="<%= progress.completed %>"> </progress-indicator>
                 </div>
             </div>
         </div>

@@ -1,0 +1,51 @@
+<!-- projects.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <!--    icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="components/theme-switcher.js"></script>
+  <script src="components/nav-menu.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="scripts/timer.js"></script>
+  <script src="scripts/theme-selector.js"></script>
+  <title>Projects - Syncadia</title>
+</head>
+<body class="default-theme">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/home"><img src="/Images/logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <nav-menu></nav-menu>
+        </div>
+        <custom-timer></custom-timer>
+        <theme-switcher></theme-switcher>
+    </nav>
+     <!-- Theme Switcher -->
+     <div class="theme-switcher container my-3">
+        <label for="theme-select">Choose a Theme:</label>
+        <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
+            <option value="default-theme">Default</option>
+            <option value="dark-theme">Dark</option>
+            <option value="pink-theme">Pink</option>
+            <option value="teal-theme">Teal</option>
+        </select>
+    </div>
+    <h1>Projects</h1>
+<a href="/projects/new">Add New Project</a>
+<ul>
+    <% projects.forEach(project => { %>
+        <li>
+            <a href="/projects<%= project.id %>"><%= project.name %></a>
+            <form action="/projects<%= project.id %>/delete" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+            <a href="/projects<%= project.id %>/edit-projects">Edit</a>
+        </li>
+    <% }) %>
+</ul>
+</body>
+</html>
