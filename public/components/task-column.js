@@ -2,7 +2,7 @@ class TaskColumn extends HTMLElement {
   #TypeToLabelMapper = {
     TODO: "To-Do",
     "IN-PROGRESS": "In-Progress",
-    DONE: "Done",
+    COMPLETE: "Complete",
   };
 
   #NO_TASKS_AVAILABLE = "<p>No tasks available.</p>";

@@ -28,13 +28,13 @@ router.get("/task-manager", (req, res) => {
         (task) => task.status === "IN-PROGRESS"
       ).length;
       const completedTasks = rows.filter(
-        (task) => task.status === "DONE"
+        (task) => task.status === "COMPLETE"
       ).length;
 
       const progress = {
         todo: totalTasks ? (todoTasks / totalTasks) * 100 : 0,
         inProgress: totalTasks ? (inProgressTasks / totalTasks) * 100 : 0,
-        done: totalTasks ? (completedTasks / totalTasks) * 100 : 0,
+        completed: totalTasks ? (completedTasks / totalTasks) * 100 : 0,
       };
 
       res.render("task-manager", { tasks: rows, progress });
@@ -144,17 +144,91 @@ router.get("/home", (req, res) => {
   res.render("home");
 });
 
-router.get("/quiz", (req, res) => {
-  res.render("quiz");
-});
 
 router.get("/features", (req, res) => {
   res.render("features");
 });
+router.get('/feedback',(req,res)=>{
+  res.render('feedback');
+})
 
 router.get("/", (req, res) => {
   res.redirect("/home");
 });
+
+// Display new projects
+router.get('/projects', (req, res) => {
+  const query = 'SELECT * FROM Projects';
+  global.db.all(query, [], (err, rows) => {
+      if (err) {
+          console.error(err.message);
+          return res.status(500).send('Server Error');
+      }
+      res.render('projects', { projects: rows });
+  });
+});
+router.get('/quiz', (req, res) => {
+  const query = 'SELECT * FROM Quizzes';
+  global.db.all(query, (err, questions)=>{
+      if (err){
+          console.error(err);
+          res.status(500).send('Error fetching quiz questions');
+      }
+      res.render('quiz', { questions });
+  });
+});
+
+
+// Render new project form 
+router.get('/projects/new', (req,res)=>{
+  res.render('new-project');
+})
+// Route to handle the creation of a new project
+router.post('/projects', (req, res) => {
+  const { name, description } = req.body;
+  const query = "INSERT INTO Projects (name, description, user_id) VALUES (?, ?, ?)";
+
+  const userId = 1; // Use a dummy user_id for now
+
+  global.db.run(query, [name, description, userId], function(err) {
+      if (err) {
+          console.error("Error inserting project:", err.message);
+          return res.status(500).send('Server Error');
+      }
+      res.redirect('/projects');
+  });
+});
+
+// Route to update the project
+router.post('/projects/update', (req, res) => {
+  const { project_id, name, description } = req.body;
+
+  const sql = "UPDATE Projects SET name = ?, description = ? WHERE id = ?";
+  global.db.run(sql, [name, description, project_id], (err) => {
+      if (err) {
+          console.error("Error updating project:", err.message);
+          return res.status(500).send('Server Error');
+      }
+
+      res.redirect('/projects');
+  });
+});
+
+router.post('/feedback',(req,res)=>{
+  const {name,email,content} = req.body;
+  const query = "INSERT INTO Feedback (user_id, name, email,content) VALUES(?, ?, ?,?)";
+  const userId = 1;
+
+  global.db.run(query,[userId, name, email,content], function(err){
+    if (err){
+      console.error('Error inserting feedback: ',err.message);
+      return res.status(500).send('Server Error');
+    }
+    res.redirect('/task-manager');
+  });
+
+});
+
 
 /**
  * @desc Displays a page with a form for creating a user record
