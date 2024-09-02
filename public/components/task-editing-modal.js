@@ -71,6 +71,22 @@ async function updateOrCreateTask() {
                 `
 
                 todoColumn.insertAdjacentHTML('beforeend', card);
+
+                const element = document.getElementById(`task-card-${taskId}`);
+
+                element.addEventListener('dragstart', function () {
+                    draggedItem = element;
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                    }, 0);
+                });
+
+                element.addEventListener('dragend', function () {
+                    setTimeout(() => {
+                        draggedItem.style.display = 'block';
+                        draggedItem = null;
+                    }, 0);
+                });
             }
         }
     } catch (error) {

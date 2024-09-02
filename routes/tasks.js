@@ -28,7 +28,7 @@ router.get("/task-manager", (req, res) => {
         (task) => task.status === "IN-PROGRESS"
       ).length;
       const completedTasks = rows.filter(
-        (task) => task.status === "COMPLETE"
+        (task) => task.status === "DONE"
       ).length;
 
       const progress = {
@@ -42,50 +42,51 @@ router.get("/task-manager", (req, res) => {
   });
 });
 
-router.put('/tasks/:id', (req, res) => {
+router.put("/tasks/:id", (req, res) => {
   const body = req.body;
   const taskId = req.params.id;
 
   if (!taskId || Object.keys(body) === 0) {
-      return res.status(400).json({ error: 'Task ID and Body are required' });
+    return res.status(400).json({ error: "Task ID and Body are required" });
   }
 
   const costructQueryUpdate = (body) => {
-    const keys = Object.keys(body)
+    const keys = Object.keys(body);
     const values = Object.values(body);
-  
-    return {
-      statement: `UPDATE tasks SET ${keys.map(key => key + ' = ?').join(', ')} WHERE id = ?`,
-      values
-    }
-  }
 
-  const {
-    statement,
-    values
-  } = costructQueryUpdate(body)
+    return {
+      statement: `UPDATE tasks SET ${keys
+        .map((key) => key + " = ?")
+        .join(", ")} WHERE id = ?`,
+      values,
+    };
+  };
+
+  const { statement, values } = costructQueryUpdate(body);
 
   const params = [...values, taskId];
 
   db.run(statement, params, (err) => {
-      if (err) {
-          console.error('Error updating task status:', err.message);
-          return res.status(500).json({ error: 'Internal server error' });
-      }
+    if (err) {
+      console.error("Error updating task status:", err.message);
+      return res.status(500).json({ error: "Internal server error" });
+    }
 
-      if (this.changes === 0) {
-          return res.status(404).json({ error: 'Task not found' });
-      }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
 
-      return res.status(200).json({ message: 'Task status updated successfully' });
+    return res
+      .status(200)
+      .json({ message: "Task status updated successfully" });
   });
-})
+});
 
-router.post('/tasks', (req, res) => {
+router.post("/tasks", (req, res) => {
   const body = req.body;
 
   if (Object.keys(body) === 0) {
-      return res.status(400).json({ error: 'Body is required' });
+    return res.status(400).json({ error: "Body is required" });
   }
 
   // Construct the INSERT query
@@ -94,49 +95,51 @@ router.post('/tasks', (req, res) => {
     const values = Object.values(body);
 
     return {
-      statement: `INSERT INTO tasks (${keys.join(', ')}, status) VALUES (${keys.map(() => '?').join(', ')}, ?)`,
-      values
+      statement: `INSERT INTO tasks (${keys.join(", ")}, status) VALUES (${keys
+        .map(() => "?")
+        .join(", ")}, ?)`,
+      values,
     };
   };
 
   const { statement, values } = constructQueryInsert(body);
 
-  const params = [...values, 'TODO'];
+  const params = [...values, "TODO"];
 
-  db.run(statement, params, function(err) {
-      if (err) {
-          console.error('Error creating task status:', err.message);
-          return res.status(500).json({ error: 'Internal server error' });
-      }
-
-      if (this.changes === 0) {
-          return res.status(404).json({ error: 'Task not found' });
-      }
-
-      return res.status(200).json({ taskId: this.lastID });
-  });
-})
-
-router.delete('/tasks/:id', (req, res) => {
-  const taskId = req.params.id;
-
-  if (!taskId) {
-    return res.status(400).json({ error: 'Task ID is required' });
-  }
-
-  const statement = 'DELETE FROM tasks WHERE id = ?';
-
-  db.run(statement, [taskId], function (err) {
+  db.run(statement, params, function (err) {
     if (err) {
-      console.error('Error deleting task:', err.message);
-      return res.status(500).json({ error: 'Internal server error' });
+      console.error("Error creating task status:", err.message);
+      return res.status(500).json({ error: "Internal server error" });
     }
 
     if (this.changes === 0) {
-      return res.status(404).json({ error: 'Task not found' });
+      return res.status(404).json({ error: "Task not found" });
     }
 
-    return res.status(200).json({ message: 'Task deleted successfully' });
+    return res.status(200).json({ taskId: this.lastID });
+  });
+});
+
+router.delete("/tasks/:id", (req, res) => {
+  const taskId = req.params.id;
+
+  if (!taskId) {
+    return res.status(400).json({ error: "Task ID is required" });
+  }
+
+  const statement = "DELETE FROM tasks WHERE id = ?";
+
+  db.run(statement, [taskId], function (err) {
+    if (err) {
+      console.error("Error deleting task:", err.message);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    return res.status(200).json({ message: "Task deleted successfully" });
   });
 });
 
@@ -144,91 +147,89 @@ router.get("/home", (req, res) => {
   res.render("home");
 });
 
-
 router.get("/features", (req, res) => {
   res.render("features");
 });
-router.get('/feedback',(req,res)=>{
-  res.render('feedback');
-})
+router.get("/feedback", (req, res) => {
+  res.render("feedback");
+});
 
 router.get("/", (req, res) => {
   res.redirect("/home");
 });
 
 // Display new projects
-router.get('/projects', (req, res) => {
-  const query = 'SELECT * FROM Projects';
+router.get("/projects", (req, res) => {
+  const query = "SELECT * FROM Projects";
   global.db.all(query, [], (err, rows) => {
-      if (err) {
-          console.error(err.message);
-          return res.status(500).send('Server Error');
-      }
-      res.render('projects', { projects: rows });
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Server Error");
+    }
+    res.render("projects", { projects: rows });
   });
 });
-router.get('/quiz', (req, res) => {
-  const query = 'SELECT * FROM Quizzes';
-  global.db.all(query, (err, questions)=>{
-      if (err){
-          console.error(err);
-          res.status(500).send('Error fetching quiz questions');
-      }
-      res.render('quiz', { questions });
+router.get("/quiz", (req, res) => {
+  const query = "SELECT * FROM Quizzes";
+  global.db.all(query, (err, questions) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error fetching quiz questions");
+    }
+    res.render("quiz", { questions });
   });
 });
 
-
-// Render new project form 
-router.get('/projects/new', (req,res)=>{
-  res.render('new-project');
-})
+// Render new project form
+router.get("/projects/new", (req, res) => {
+  res.render("new-project");
+});
 // Route to handle the creation of a new project
-router.post('/projects', (req, res) => {
+router.post("/projects", (req, res) => {
   const { name, description } = req.body;
-  const query = "INSERT INTO Projects (name, description, user_id) VALUES (?, ?, ?)";
+  const query =
+    "INSERT INTO Projects (name, description, user_id) VALUES (?, ?, ?)";
 
   const userId = 1; // Use a dummy user_id for now
 
-  global.db.run(query, [name, description, userId], function(err) {
-      if (err) {
-          console.error("Error inserting project:", err.message);
-          return res.status(500).send('Server Error');
-      }
-      res.redirect('/projects');
+  global.db.run(query, [name, description, userId], function (err) {
+    if (err) {
+      console.error("Error inserting project:", err.message);
+      return res.status(500).send("Server Error");
+    }
+    res.redirect("/projects");
   });
 });
 
 // Route to update the project
-router.post('/projects/update', (req, res) => {
+router.post("/projects/update", (req, res) => {
   const { project_id, name, description } = req.body;
 
   const sql = "UPDATE Projects SET name = ?, description = ? WHERE id = ?";
   global.db.run(sql, [name, description, project_id], (err) => {
-      if (err) {
-          console.error("Error updating project:", err.message);
-          return res.status(500).send('Server Error');
-      }
+    if (err) {
+      console.error("Error updating project:", err.message);
+      return res.status(500).send("Server Error");
+    }
 
-      res.redirect('/projects');
+    res.redirect("/projects");
   });
 });
 
-router.post('/feedback',(req,res)=>{
-  const {name,email,content} = req.body;
-  const query = "INSERT INTO Feedback (user_id, name, email,content) VALUES(?, ?, ?,?)";
+router.post("/feedback", (req, res) => {
+  const { name, email, content } = req.body;
+  const query =
+    "INSERT INTO Feedback (user_id, name, email,content) VALUES(?, ?, ?,?)";
   const userId = 1;
 
-  global.db.run(query,[userId, name, email,content], function(err){
-    if (err){
-      console.error('Error inserting feedback: ',err.message);
-      return res.status(500).send('Server Error');
+  global.db.run(query, [userId, name, email, content], function (err) {
+    if (err) {
+      console.error("Error inserting feedback: ", err.message);
+      return res.status(500).send("Server Error");
     }
-    res.redirect('/task-manager');
+    res.redirect("/task-manager");
   });
-
 });
-
 
 /**
  * @desc Displays a page with a form for creating a user record

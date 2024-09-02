@@ -1,6 +1,6 @@
+var draggedItem = null;
 document.addEventListener('DOMContentLoaded', function () {
     const columns = document.querySelectorAll('.card-column');
-    let draggedItem = null;
 
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('dragstart', function () {

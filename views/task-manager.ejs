@@ -40,7 +40,8 @@
                 <nav class="nav flex-column">
                     <a class="nav-link" href="#">Search</a>
                     <a class="nav-link" href="#" id="open-notepad">Notes</a>
-                    <a class="nav-link" href="#" id="open-calendar" data-toggle="modal" data-target="#calendarModal">Calendar</a>
+                    <a class="nav-link" href="#" id="open-calendar" data-toggle="modal"
+                        data-target="#calendarModal">Calendar</a>
                     <a class="nav-link" href="#">Filters & Priorities</a>
                     <a class="nav-link" href="/projects">My Projects</a>
                     <a class="nav-link" href="#">Add Team</a>
@@ -53,14 +54,17 @@
                 <div class="row mb-5">
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
-                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="COMPLETE"></task-column>
+                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="DONE"></task-column>
                 </div>
                 <h2>Progress</h2>
                 <p class="lead">Subheading to introduce testimonials</p>
                 <div class="row text-center">
-                    <progress-indicator class="col-md-4" column="TODO" progress="<%= progress.todo %>"></progress-indicator>
-                    <progress-indicator class="col-md-4" column="IN-PROGRESS" progress="<%= progress.inProgress %>"></progress-indicator>
-                    <progress-indicator class="col-md-4" column="COMPLETE" progress="<%= progress.completed %>"> </progress-indicator>
+                    <progress-indicator class="col-md-4" column="TODO"
+                        progress="<%= progress.todo %>"></progress-indicator>
+                    <progress-indicator class="col-md-4" column="IN-PROGRESS"
+                        progress="<%= progress.inProgress %>"></progress-indicator>
+                    <progress-indicator class="col-md-4" column="DONE" progress="<%= progress.completed %>">
+                    </progress-indicator>
                 </div>
             </div>
         </div>
@@ -69,7 +73,8 @@
     <!-- Notepad Modal -->
     <notepad-modal></notepad-modal>
     <!-- **Calendar Modal** -->
-    <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">
+    <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,7 +98,7 @@
     <hr>
     <!-- Footer -->
     <custom-footer></custom-footer>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -103,7 +108,7 @@
     <script src="script.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -132,23 +137,23 @@
                         description: ''
                     }
                 ],
-                eventClick: function(info) {
+                eventClick: function (info) {
                     alert('Event: ' + info.event.title + '\n' +
-                          'Description: ' + info.event.extendedProps.description);
+                        'Description: ' + info.event.extendedProps.description);
                 }
             });
 
             calendar.render();
 
             // **Open the Calendar Modal**
-            document.getElementById('open-calendar').addEventListener('click', function() {
+            document.getElementById('open-calendar').addEventListener('click', function () {
                 $('#calendarModal').modal('show');
             });
 
             // Add Task to Calendar
-            document.getElementById('taskForm').addEventListener('submit', function(e) {
+            document.getElementById('taskForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 var title = document.getElementById('taskTitle').value;
                 var description = document.getElementById('taskDescription').value;
                 var startDate = document.getElementById('taskStartDate').value;
@@ -171,7 +176,7 @@
                     var timeUntilReminder = reminderDate - now;
 
                     if (timeUntilReminder > 0) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             alert('Reminder: ' + title + '\n' + description);
                         }, timeUntilReminder);
                     }
