@@ -6,7 +6,7 @@ class NavMenu extends HTMLElement {
                 <li class="nav-item"><a class="nav-link" href="/task-manager">Task Manager</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quiz">Quiz</a></li>
                 <li class="nav-item"><a class="nav-link" href="/features">Features</a></li>
-                <li class="nav-item"><a class="nav-link" href="/Signup">Login</a></li>
+                
             </ul>
         `
     }

@@ -15,6 +15,12 @@ const router = express.Router();
  * @desc Display all the tasks
  */
 
+
+router.get('/Signup', (req, res) => {
+  res.render('Signup'); // Ensure the file is named 'Signup.ejs' in your views directory
+});
+
+module.exports = router;
 router.get("/task-manager", (req, res) => {
   const sql = "SELECT * FROM Tasks";
   global.db.all(sql, [], (err, rows) => {
