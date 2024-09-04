@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!--    icons-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="styles/main.css">
@@ -23,44 +23,44 @@
         </div>
         <theme-switcher></theme-switcher>
     </nav>
-
-  <div class="container mt-4">
-    <h2 class="mb-3">What Productivity Method Works Best For You?</h2>
-    <p>Take our quick quiz to find out how you can enhance your productivity!</p>
-    <button id="quizButton" class="btn btn-sec mb-4">Take Quiz!</button>
-
-    <h4 class="mb-3">Want To Explore On Your Own?</h4>
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Link to paper1</h5>
-            <p class="card-text">Description of paper 1 content here...</p>
-            <a href="#" class="btn btn-primary">View Details</a>
+    <div class="container mt-4">
+      <h2 class="mb-3">What Productivity Method Works Best For You?</h2>
+      <p>Take our quick quiz to find out how you can enhance your productivity!</p>
+      <button id="quizButton" class="btn btn-sec mb-4">Take Quiz!</button>
+      <h4 class="mb-3">Want To Explore On Your Own?</h4>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="Images\paper1.png" class="card-img-top" alt="Paper 1 Image">
+            <div class="card-body">
+              <h5 class="card-title">The Pomodoro® Technique</h5>
+              <p class="card-text">Over 2 million people have already used the Pomodoro® Technique to transform their lives.</p>
+              <a href="https://www.pomodorotechnique.com/" class="btn btn-primary">View Details</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Link to paper2</h5>
-            <p class="card-text">Description of paper 2 content here...</p>
-            <a href="#" class="btn btn-primary">View Details</a>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="/Images/paper2.png" class="card-img-top" alt="Paper 2 Image">
+            <div class="card-body">
+              <h5 class="card-title">Time Blocking</h5>
+              <p class="card-text">...and its cousins task batching and day theming. Control your schedule so it doesn't control you</p>
+              <a href="https://todoist.com/productivity-methods/time-blocking" class="btn btn-primary">View Details</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Link to paper3</h5>
-            <p class="card-text">Description of paper 3 content here...</p>
-            <a href="#" class="btn btn-primary">View Details</a>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="/Images/paper3.png" class="card-img-top" alt="Paper 3 Image">
+            <div class="card-body">
+              <h5 class="card-title">WorkStatus</h5>
+              <p class="card-text">Top 10 Clever Productivity Methods that Actually Get Results,The average worker spends only a third of their day working.</p>
+              <a href="https://www.workstatus.io/blog/workforce-management/top-clever-productivity-methods-that-actually-get-results/" class="btn btn-primary">View Details</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
   <div class="modal fade" id="quizModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -81,7 +81,6 @@
                       <option value="option4">D. I rarely plan my day.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question2">2. What is your approach to handling large tasks?</label>
                   <select id="question2" name="question2" class="form-control">
@@ -91,7 +90,6 @@
                       <option value="option4">D. Procrastinate until the last minute.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question3">3. How do you prioritize your tasks?</label>
                   <select id="question3" name="question3" class="form-control">
@@ -101,7 +99,6 @@
                       <option value="option4">D. I don’t have a specific prioritization method.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question4">4. How do you stay focused during work?</label>
                   <select id="question4" name="question4" class="form-control">
@@ -111,7 +108,6 @@
                       <option value="option4">D. I struggle to stay focused.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question5">5. How do you handle unexpected interruptions?</label>
                   <select id="question5" name="question5" class="form-control">
@@ -121,7 +117,6 @@
                       <option value="option4">D. They often derail my progress.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question6">6. What is your preferred method of task management?</label>
                   <select id="question6" name="question6" class="form-control">
@@ -131,7 +126,6 @@
                       <option value="option4">D. I don’t use any specific method.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question7">7. How do you deal with procrastination?</label>
                   <select id="question7" name="question7" class="form-control">
@@ -141,7 +135,6 @@
                       <option value="option4">D. I often struggle to overcome procrastination.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question8">8. What time of day do you feel most productive?</label>
                   <select id="question8" name="question8" class="form-control">
@@ -151,7 +144,6 @@
                       <option value="option4">D. Evening or night.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question9">9. How do you track your progress on long-term projects?</label>
                   <select id="question9" name="question9" class="form-control">
@@ -161,7 +153,6 @@
                       <option value="option4">D. I don’t track progress regularly.</option>
                   </select>
               </div>
-      
               <div class="form-group">
                   <label for="question10">10. What motivates you to complete tasks?</label>
                   <select id="question10" name="question10" class="form-control">
@@ -201,10 +192,8 @@
       </div>
     </div>
   </div>
-
    <!-- Footer -->
    <custom-footer></custom-footer>
-    
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

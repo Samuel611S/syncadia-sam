@@ -126,43 +126,54 @@ router.post("/tasks", (req, res) => {
   });
 });
 
-router.delete("/tasks/:id", (req, res) => {
-  const taskId = req.params.id;
+//deleted notes
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('open-deleted-notes').addEventListener('click', function () {
+      const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
+      const deletedNotesList = document.getElementById('deletedNotesList');
+      deletedNotesList.innerHTML = ''; // Clear the list first
 
-  if (!taskId) {
-    return res.status(400).json({ error: "Task ID is required" });
-  }
+      if (deletedNotes.length === 0) {
+          deletedNotesList.innerHTML = '<li class="list-group-item">No deleted notes available.</li>';
+      } else {
+          deletedNotes.forEach((note, index) => {
+              const listItem = document.createElement('li');
+              listItem.classList.add('list-group-item');
+              listItem.innerHTML = `
+                  <div>
+                      <p>${note.content}</p>
+                      <small class="text-muted">Deleted on: ${note.time}</small>
+                      <button class="btn btn-sm btn-success mt-2" onclick="restoreNote(${index})">Restore</button>
+                  </div>
+              `;
+              deletedNotesList.appendChild(listItem);
+          });
+      }
 
-  const statement = "DELETE FROM tasks WHERE id = ?";
-
-  db.run(statement, [taskId], function (err) {
-    if (err) {
-      console.error("Error deleting task:", err.message);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
-    if (this.changes === 0) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    return res.status(200).json({ message: "Task deleted successfully" });
+      $('#deletedNotesModal').modal('show');
   });
 });
 
-router.get("/home", (req, res) => {
-  res.render("home");
-});
+function restoreNote(index) {
+  const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
+  const noteToRestore = deletedNotes[index];
 
-router.get("/features", (req, res) => {
-  res.render("features");
-});
-router.get("/feedback", (req, res) => {
-  res.render("feedback");
-});
+  if (noteToRestore) {
+      // Restore the note content to the Notepad
+      document.querySelector('#notepadContent').innerHTML = noteToRestore.content;
+      localStorage.setItem('notepadContent', noteToRestore.content);
 
-router.get("/", (req, res) => {
-  res.redirect("/home");
-});
+      // Remove the note from the deleted notes list
+      deletedNotes.splice(index, 1);
+      localStorage.setItem('deletedNotes', JSON.stringify(deletedNotes));
+
+      // Update the Deleted Notes modal
+      document.getElementById('open-deleted-notes').click();
+
+      // Notify the user
+      alert('Note has been restored to the Notepad.');
+  }
+}
 
 // Display new projects
 router.get("/projects", (req, res) => {
@@ -265,6 +276,36 @@ router.post("/add-user", (req, res, next) => {
       res.send(`New user added with ID ${this.lastID}!`);
     }
   });
+  
+//priority 
+document.getElementById('addTaskNoteForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  var title = document.getElementById('taskNoteTitle').value;
+  var description = document.getElementById('taskNoteDescription').value;
+  var selectedDate = document.getElementById('selectedDate').value;
+  var priority = document.getElementById('taskNotePriority').value; // Capture priority
+
+  // Add the event to the calendar
+  calendar.addEvent({
+      title: title,
+      start: selectedDate,
+      description: description,
+      allDay: true,
+      extendedProps: {
+          priority: priority // Store the priority
+      }
+  });
+
+  // Close modal and reset form
+  $('#addTaskNoteModal').modal('hide');
+  document.getElementById('addTaskNoteForm').reset();
+});
+
+
+
+  
 });
 // Export the router object so index.js can access it
 module.exports = router;
+
