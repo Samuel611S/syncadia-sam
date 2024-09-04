@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 TaskManager.updateTask(taskId, { status });
                 TaskManager.updateTasksProgressIndicators();
+                updateProgressBar()
             }
         });
     });

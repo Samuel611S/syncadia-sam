@@ -10,18 +10,25 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <!-- components -->
     <script src="components/theme-switcher.js"></script>
     <script src="components/timer.js"></script>
     <script src="components/nav-menu.js"></script>
     <script src="components/footer.js"></script>
-    <script src="scripts/drag.js"></script>
-    <script src="scripts/task-manager.js"></script>
-    <script src="scripts/timer.js"></script>
-    <script src="scripts/theme-selector.js"></script>
     <script src="components/progress-indicator.js"></script>
     <script src="components/task-editing-modal.js"></script>
     <script src="components/task-column.js"></script>
     <script src="components/timer-modal.js"></script>
+    <script src="components/notepad-modal.js"></script>
+    <script src="components/progress-bar.js"></script>
+    <!-- scripts -->
+    <script src="scripts/progress-bar.js"></script>
+    <script src="scripts/drag.js"></script>
+    <script src="scripts/task-manager.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/theme-selector.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/notes.js"></script>
 </head>
 
 <body class="default-theme">
@@ -39,18 +46,20 @@
             <div class="col-md-2 sidebar">
                 <nav class="nav flex-column">
                     <a class="nav-link" href="#">Search</a>
+                    <!-- <input type="text" id="searchInput" class="form-control" placeholder="Search tasks..."> -->
                     <a class="nav-link" href="#" id="open-notepad">Notes</a>
                     <a class="nav-link" href="#" id="open-calendar" data-toggle="modal"
                         data-target="#calendarModal">Calendar</a>
                     <a class="nav-link" href="#">Filters & Priorities</a>
                     <a class="nav-link" href="/projects">My Projects</a>
-                    <a class="nav-link" href="#">Add Team</a>
-                    <a class="nav-link" href="#">Deleted Notes</a>
+                    <a class="nav-link" href="#" id="open-deleted-notes" data-toggle="modal"
+                        data-target="#deletedNotesModal">Deleted Notes</a>
                 </nav>
                 <button class="btn btn-dark mt-3" onclick="window.location.href='/feedback';">Give us feedback!</button>
             </div>
             <div class="col-md-10 main-content">
                 <h2 class="mb-5">Start Planning!</h2>
+                <progress-bar></progress-bar>
                 <div class="row mb-5">
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
@@ -72,7 +81,31 @@
 
     <!-- Notepad Modal -->
     <notepad-modal></notepad-modal>
-    <!-- **Calendar Modal** -->
+
+    <!-- Deleted Notes Modal -->
+    <div class="modal fade " id="deletedNotesModal" tabindex="-1" aria-labelledby="deletedNotesModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletedNotesModalLabel">Deleted Notes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="deletedNotesList" class="list-group">
+                        <!-- Deleted notes will be appended here -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Modal -->
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -85,6 +118,37 @@
                 </div>
                 <div class="modal-body">
                     <div id="calendar" class="border p-3" style="min-height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task/Note Modal -->
+    <div class="modal fade" id="addTaskNoteModal" tabindex="-1" aria-labelledby="addTaskNoteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskNoteModalLabel">Add Task/Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTaskNoteForm">
+                        <div class="form-group">
+                            <label for="taskNoteTitle">Title</label>
+                            <input type="text" id="taskNoteTitle" class="form-control" placeholder="Enter title"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskNoteDescription">Description</label>
+                            <textarea id="taskNoteDescription" class="form-control" rows="3"
+                                placeholder="Enter description"></textarea>
+                        </div>
+                        <input type="hidden" id="selectedDate">
+                        <button type="submit" class="btn btn-primary">Add to Calendar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -105,90 +169,5 @@
 
     <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    <script src="script.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: [
-                    // Example event data
-                    {
-                        title: '',
-                        start: '',
-                        description: ''
-                    },
-                    {
-                        title: '',
-                        start: '',
-                        end: '',
-                        description: ''
-                    },
-                    {
-                        title: '',
-                        start: '',
-                        description: ''
-                    }
-                ],
-                eventClick: function (info) {
-                    alert('Event: ' + info.event.title + '\n' +
-                        'Description: ' + info.event.extendedProps.description);
-                }
-            });
-
-            calendar.render();
-
-            // **Open the Calendar Modal**
-            document.getElementById('open-calendar').addEventListener('click', function () {
-                $('#calendarModal').modal('show');
-            });
-
-            // Add Task to Calendar
-            document.getElementById('taskForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                var title = document.getElementById('taskTitle').value;
-                var description = document.getElementById('taskDescription').value;
-                var startDate = document.getElementById('taskStartDate').value;
-                var endDate = document.getElementById('taskEndDate').value;
-                var reminderTime = document.getElementById('taskReminder').value;
-
-                // Add the event to the calendar
-                calendar.addEvent({
-                    title: title,
-                    start: startDate,
-                    end: endDate,
-                    description: description
-                });
-
-                // Set Reminder
-                if (reminderTime) {
-                    var reminderDate = new Date(startDate);
-                    reminderDate.setMinutes(reminderDate.getMinutes() - reminderTime);
-                    var now = new Date();
-                    var timeUntilReminder = reminderDate - now;
-
-                    if (timeUntilReminder > 0) {
-                        setTimeout(function () {
-                            alert('Reminder: ' + title + '\n' + description);
-                        }, timeUntilReminder);
-                    }
-                }
-
-                // Close modal and reset form
-                $('#addTaskModal').modal('hide');
-                document.getElementById('taskForm').reset();
-            });
-        });
-    </script>
-
 </body>
-
 </html>
