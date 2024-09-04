@@ -11,13 +11,19 @@
 
 /* Dark Theme */
 .dark-theme {
-    --bg-color: #343a40;
-     --text-color: #ffffff;
-    --nav-color: #343a40;
-    --nav-text-color: #ffffff;
-    --button-bg-color: #007bff;
-    --footer-bg-color: #343a40;
-    --footer-text-color: #999;
+    --bg-color: #1E1E2F; /* Darker, richer background */
+    --text-color: #E0E0E0; /* Softer off-white text for better contrast */
+    --nav-color: #2B2B3B; /* Slightly lighter nav color to differentiate */
+    --nav-text-color: #F5F5F5; /* Brighter nav text color */
+    --button-bg-color: #8C807F; /* A warm coral color for buttons */
+    --button-text-color: #FFFFFF; /* White text on buttons */
+    --footer-bg-color: #2B2B3B; /* Matching the nav color for consistency */
+    --footer-text-color: #BBBBBB; /* Lighter gray for footer text */
+    --card-bg-color: #2A2A3C; /* Dark gray background for cards */
+    --card-text-color: #DCDCDC; /* Light gray text for readability */
+    --link-color: #FF9F43; /* Vivid orange for links */
+    --hover-bg-color: #38384F; /* Slightly lighter hover background */
+    --hover-text-color: #FFFFFF; /* Consistent text color on hover */
 }
 
 
@@ -349,4 +355,9 @@ footer ul li a:hover {
 .delete-task-btn svg {
     width: 20px;
     height: 20px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100px;
 }
