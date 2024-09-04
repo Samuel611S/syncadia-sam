@@ -127,32 +127,32 @@ router.post("/tasks", (req, res) => {
 });
 
 //deleted notes
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('open-deleted-notes').addEventListener('click', function () {
-      const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
-      const deletedNotesList = document.getElementById('deletedNotesList');
-      deletedNotesList.innerHTML = ''; // Clear the list first
+// document.addEventListener('DOMContentLoaded', function () {
+//   document.getElementById('open-deleted-notes').addEventListener('click', function () {
+//       const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
+//       const deletedNotesList = document.getElementById('deletedNotesList');
+//       deletedNotesList.innerHTML = ''; // Clear the list first
 
-      if (deletedNotes.length === 0) {
-          deletedNotesList.innerHTML = '<li class="list-group-item">No deleted notes available.</li>';
-      } else {
-          deletedNotes.forEach((note, index) => {
-              const listItem = document.createElement('li');
-              listItem.classList.add('list-group-item');
-              listItem.innerHTML = `
-                  <div>
-                      <p>${note.content}</p>
-                      <small class="text-muted">Deleted on: ${note.time}</small>
-                      <button class="btn btn-sm btn-success mt-2" onclick="restoreNote(${index})">Restore</button>
-                  </div>
-              `;
-              deletedNotesList.appendChild(listItem);
-          });
-      }
+//       if (deletedNotes.length === 0) {
+//           deletedNotesList.innerHTML = '<li class="list-group-item">No deleted notes available.</li>';
+//       } else {
+//           deletedNotes.forEach((note, index) => {
+//               const listItem = document.createElement('li');
+//               listItem.classList.add('list-group-item');
+//               listItem.innerHTML = `
+//                   <div>
+//                       <p>${note.content}</p>
+//                       <small class="text-muted">Deleted on: ${note.time}</small>
+//                       <button class="btn btn-sm btn-success mt-2" onclick="restoreNote(${index})">Restore</button>
+//                   </div>
+//               `;
+//               deletedNotesList.appendChild(listItem);
+//           });
+//       }
 
-      $('#deletedNotesModal').modal('show');
-  });
-});
+//       $('#deletedNotesModal').modal('show');
+//   });
+// });
 
 function restoreNote(index) {
   const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
