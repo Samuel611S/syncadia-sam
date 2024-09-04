@@ -15,6 +15,20 @@ const router = express.Router();
  * @desc Display all the tasks
  */
 
+
+router.get('/Signup', (req, res) => {
+  res.render('Signup'); // Ensure the file is named 'Signup.ejs' in your views directory
+});
+
+router.get("/home", (req, res) => {
+  res.render("home"); // Directly render 'home.ejs'
+});
+// Root route redirects to the home page
+router.get("/", (req, res) => {
+  res.redirect("/home");
+});
+
+module.exports = router;
 router.get("/task-manager", (req, res) => {
   const sql = "SELECT * FROM Tasks";
   global.db.all(sql, [], (err, rows) => {
@@ -120,32 +134,27 @@ router.post("/tasks", (req, res) => {
   });
 });
 
-router.delete("/tasks/:id", (req, res) => {
-  const taskId = req.params.id;
+//deleted notes
+function restoreNote(index) {
+  const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
+  const noteToRestore = deletedNotes[index];
 
-  if (!taskId) {
-    return res.status(400).json({ error: "Task ID is required" });
+  if (noteToRestore) {
+      // Restore the note content to the Notepad
+      document.querySelector('#notepadContent').innerHTML = noteToRestore.content;
+      localStorage.setItem('notepadContent', noteToRestore.content);
+
+      // Remove the note from the deleted notes list
+      deletedNotes.splice(index, 1);
+      localStorage.setItem('deletedNotes', JSON.stringify(deletedNotes));
+
+      // Update the Deleted Notes modal
+      document.getElementById('open-deleted-notes').click();
+
+      // Notify the user
+      alert('Note has been restored to the Notepad.');
   }
-
-  const statement = "DELETE FROM tasks WHERE id = ?";
-
-  db.run(statement, [taskId], function (err) {
-    if (err) {
-      console.error("Error deleting task:", err.message);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
-    if (this.changes === 0) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    return res.status(200).json({ message: "Task deleted successfully" });
-  });
-});
-
-router.get("/home", (req, res) => {
-  res.render("home");
-});
+}
 
 router.get("/features", (req, res) => {
   res.render("features");
@@ -153,11 +162,9 @@ router.get("/features", (req, res) => {
 router.get("/feedback", (req, res) => {
   res.render("feedback");
 });
-
 router.get("/", (req, res) => {
   res.redirect("/home");
 });
-
 // Display new projects
 router.get("/projects", (req, res) => {
   const query = "SELECT * FROM Projects";
@@ -259,6 +266,36 @@ router.post("/add-user", (req, res, next) => {
       res.send(`New user added with ID ${this.lastID}!`);
     }
   });
+  
+// //priority 
+document.getElementById('addTaskNoteForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  var title = document.getElementById('taskNoteTitle').value;
+  var description = document.getElementById('taskNoteDescription').value;
+  var selectedDate = document.getElementById('selectedDate').value;
+  var priority = document.getElementById('taskNotePriority').value; // Capture priority
+
+  // Add the event to the calendar
+  calendar.addEvent({
+      title: title,
+      start: selectedDate,
+      description: description,
+      allDay: true,
+      extendedProps: {
+          priority: priority // Store the priority
+      }
+  });
+
+  // Close modal and reset form
+  $('#addTaskNoteModal').modal('hide');
+  document.getElementById('addTaskNoteForm').reset();
+});
+
+
+
+  
 });
 // Export the router object so index.js can access it
 module.exports = router;
+
