@@ -30,6 +30,38 @@ global.db = new sqlite3.Database('./database.db',function(err){
 const taskRoutes = require('./routes/tasks');
 app.use('/', taskRoutes);
 
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const usersRoute = require('./routes/users');
+app.use('/', usersRoute);
+
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const authRoute = require('./routes/auth');
+app.use('/', authRoute);
+
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const featuresRoute = require('./routes/features');
+app.use('/', featuresRoute);
+
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const projectsRoute = require('./routes/projects');
+app.use('/', projectsRoute);
+
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const homeRoute = require('./routes/home');
+app.use('/', homeRoute);
+
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const quizRoute = require('./routes/quiz');
+app.use('/', quizRoute);
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
+const feedbackRoute = require('./routes/feedback');
+app.use('/', feedbackRoute);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

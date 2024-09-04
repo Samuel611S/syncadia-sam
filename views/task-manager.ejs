@@ -10,31 +10,25 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <!-- components -->
     <script src="components/theme-switcher.js"></script>
     <script src="components/timer.js"></script>
     <script src="components/nav-menu.js"></script>
     <script src="components/footer.js"></script>
-    <script src="scripts/drag.js"></script>
-    <script src="scripts/task-manager.js"></script>
-    <script src="scripts/timer.js"></script>
-    <script src="scripts/theme-selector.js"></script>
     <script src="components/progress-indicator.js"></script>
     <script src="components/task-editing-modal.js"></script>
     <script src="components/task-column.js"></script>
     <script src="components/timer-modal.js"></script>
     <script src="components/notepad-modal.js"></script>
-
-    <style>
-        #calendar {
-            width: 100%;
-            height: 100%;
-            min-height: 500px;
-        }
-
-        .modal-body {
-            padding: 0;
-        }
-    </style>
+    <script src="components/progress-bar.js"></script>
+    <!-- scripts -->
+    <script src="scripts/progress-bar.js"></script>
+    <script src="scripts/drag.js"></script>
+    <script src="scripts/task-manager.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/theme-selector.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/notes.js"></script>
 </head>
 
 <body class="default-theme">
@@ -58,12 +52,14 @@
                         data-target="#calendarModal">Calendar</a>
                     <a class="nav-link" href="#">Filters & Priorities</a>
                     <a class="nav-link" href="/projects">My Projects</a>
-                    <a class="nav-link" href="#" id="open-deleted-notes" data-toggle="modal" data-target="#deletedNotesModal">Deleted Notes</a>
+                    <a class="nav-link" href="#" id="open-deleted-notes" data-toggle="modal"
+                        data-target="#deletedNotesModal">Deleted Notes</a>
                 </nav>
                 <button class="btn btn-dark mt-3" onclick="window.location.href='/feedback';">Give us feedback!</button>
             </div>
             <div class="col-md-10 main-content">
                 <h2 class="mb-5">Start Planning!</h2>
+                <progress-bar></progress-bar>
                 <div class="row mb-5">
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
                     <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
@@ -87,7 +83,8 @@
     <notepad-modal></notepad-modal>
 
     <!-- Deleted Notes Modal -->
-    <div class="modal fade" id="deletedNotesModal" tabindex="-1" aria-labelledby="deletedNotesModalLabel" aria-hidden="true">
+    <div class="modal fade " id="deletedNotesModal" tabindex="-1" aria-labelledby="deletedNotesModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -127,7 +124,8 @@
     </div>
 
     <!-- Add Task/Note Modal -->
-    <div class="modal fade" id="addTaskNoteModal" tabindex="-1" aria-labelledby="addTaskNoteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addTaskNoteModal" tabindex="-1" aria-labelledby="addTaskNoteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,11 +138,13 @@
                     <form id="addTaskNoteForm">
                         <div class="form-group">
                             <label for="taskNoteTitle">Title</label>
-                            <input type="text" id="taskNoteTitle" class="form-control" placeholder="Enter title" required>
+                            <input type="text" id="taskNoteTitle" class="form-control" placeholder="Enter title"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="taskNoteDescription">Description</label>
-                            <textarea id="taskNoteDescription" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                            <textarea id="taskNoteDescription" class="form-control" rows="3"
+                                placeholder="Enter description"></textarea>
                         </div>
                         <input type="hidden" id="selectedDate">
                         <button type="submit" class="btn btn-primary">Add to Calendar</button>
@@ -169,128 +169,5 @@
 
     <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    <script src="script.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                dateClick: function(info) {
-                    document.getElementById('selectedDate').value = info.dateStr;
-                    $('#addTaskNoteModal').modal('show');
-                },
-                events: [
-                    // Example event data
-                    {
-                        title: '',
-                        start: '',
-                        description: ''
-                    },
-                    {
-                        title: '',
-                        start: '',
-                        end: '',
-                        description: ''
-                    },
-                    {
-                        title: '',
-                        start: '',
-                        description: ''
-                    }
-                ],
-                eventClick: function (info) {
-                    alert('Event: ' + info.event.title + '\n' +
-                        'Description: ' + info.event.extendedProps.description);
-                }
-            });
-
-            calendar.render();
-
-            // Open the Calendar Modal and force rerender after showing
-            document.getElementById('open-calendar').addEventListener('click', function () {
-                $('#calendarModal').modal('show');
-
-                setTimeout(() => {
-                    calendar.render(); // Rerender the calendar after modal is shown
-                }, 200); // Adjust the timeout as needed
-            });
-
-            // Load deleted notes into the modal
-            document.getElementById('open-deleted-notes').addEventListener('click', function () {
-                const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
-                const deletedNotesList = document.getElementById('deletedNotesList');
-                deletedNotesList.innerHTML = ''; // Clear the list first
-
-                if (deletedNotes.length === 0) {
-                    deletedNotesList.innerHTML = '<li class="list-group-item">No deleted notes available.</li>';
-                } else {
-                    deletedNotes.forEach((note, index) => {
-                        const listItem = document.createElement('li');
-                        listItem.classList.add('list-group-item');
-                        listItem.innerHTML = `
-                            <div>
-                                <p>${note.content}</p>
-                                <small class="text-muted">Deleted on: ${note.time}</small>
-                                <button class="btn btn-sm btn-success mt-2" onclick="restoreNote(${index})">Restore</button>
-                            </div>
-                        `;
-                        deletedNotesList.appendChild(listItem);
-                    });
-                }
-
-                $('#deletedNotesModal').modal('show');
-            });
-
-            // Add Task/Note to Calendar
-            document.getElementById('addTaskNoteForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                var title = document.getElementById('taskNoteTitle').value;
-                var description = document.getElementById('taskNoteDescription').value;
-                var selectedDate = document.getElementById('selectedDate').value;
-
-                // Add the event to the calendar
-                calendar.addEvent({
-                    title: title,
-                    start: selectedDate,
-                    description: description,
-                    allDay: true
-                });
-
-                // Close modal and reset form
-                $('#addTaskNoteModal').modal('hide');
-                document.getElementById('addTaskNoteForm').reset();
-            });
-        });
-
-        function restoreNote(index) {
-            const deletedNotes = JSON.parse(localStorage.getItem('deletedNotes')) || [];
-            const noteToRestore = deletedNotes[index];
-
-            if (noteToRestore) {
-                // Restore the note content to the Notepad
-                document.querySelector('#notepadContent').innerHTML = noteToRestore.content;
-                localStorage.setItem('notepadContent', noteToRestore.content);
-
-                // Remove the note from the deleted notes list
-                deletedNotes.splice(index, 1);
-                localStorage.setItem('deletedNotes', JSON.stringify(deletedNotes));
-
-                // Update the Deleted Notes modal
-                document.getElementById('open-deleted-notes').click();
-
-                // Notify the user
-                alert('Note has been restored to the Notepad.');
-            }
-        }
-    </script>
 </body>
-
 </html>
