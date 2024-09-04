@@ -404,3 +404,17 @@ footer ul li a:hover {
     font-size: 18px;
     color: green;
 }
+
+.pill-badge {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    font-size: 0.75em;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 9999px; /* Fully rounded for pill shape */
+    margin-left: 0.5em;
+  }
+
+.bg-primary { background-color: #007bff; }
+.bg-secondary { background-color: #6c757d; }
+.bg-danger { background-color: #dc3545; }

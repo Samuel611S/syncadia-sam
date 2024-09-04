@@ -11,15 +11,19 @@ function getCardInfo(id) {
 function openEditModal(id) {
     if (id) {
         document.getElementById('taskId').value = id;
-        const {cardTitle, cardContent} = getCardInfo(id);
-    
+        const { cardTitle, cardContent } = getCardInfo(id);
+        
         document.getElementById('taskTitle').value = cardTitle.textContent;
         document.getElementById('taskContent').value = cardContent.textContent;
+
+        const taskPriority = document.querySelector(`#task-card-${id} .badge`).getAttribute('data-priority');
+        document.getElementById('taskPriority').value = taskPriority;
     } else {
         document.getElementById('editTaskModalLabel').textContent = 'Create Task';
         document.getElementById('taskId').value = '';
         document.getElementById('taskTitle').value = '';
         document.getElementById('taskContent').value = '';
+        document.getElementById('taskPriority').value = 'primary';  // Default to primary
     }
 
     editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
@@ -41,26 +45,31 @@ async function updateOrCreateTask() {
         const id = document.getElementById('taskId').value;
         const title = document.getElementById('taskTitle').value;
         const content = document.getElementById('taskContent').value;
+        const priority = document.getElementById('taskPriority').value || 'primary'; // Default to 'primary'
 
         if (id) {
-            const success = await TaskManager.updateTask(id, {title, content});
+            const success = await TaskManager.updateTask(id, { title, content, priority });
             if (success) {
-                const {cardTitle, cardContent} = getCardInfo(id);
+                const { cardTitle, cardContent } = getCardInfo(id);
     
                 if (cardTitle && cardContent) {
                     cardTitle.textContent = title;
                     cardContent.textContent = content;
+                    const badge = document.querySelector(`#task-card-${id} .badge`);
+                    badge.className = `badge rounded-pill bg-${priority}`;
+                    badge.textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
                 }
             }
         } else {
-            const taskId = await TaskManager.createTask({title, content});
+            const taskId = await TaskManager.createTask({ title, content, priority });
             if (taskId) {
                 const todoColumn = document.getElementById('TODO-column');
-                const card =  `
+                const card = `
                     <div class="card task-card" id="task-card-${taskId}" draggable="true" data-task-id="${taskId}" onclick="openEditModal('${taskId}', '${title}', '${content}')">
                         <div class="card-body">
                             <h5 class="card-title">${title}</h5>
                             <div class="card-text">${content}</div>
+                            <span class="badge rounded-pill bg-${priority}" data-priority="${priority}">${priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
                         </div>
                         <button class="btn btn-danger btn-sm delete-task-btn" onclick="event.stopPropagation(); deleteTask('${taskId}', event)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
@@ -68,25 +77,8 @@ async function updateOrCreateTask() {
                             </svg>
                         </button>
                     </div>
-                `
-
+                `;
                 todoColumn.insertAdjacentHTML('beforeend', card);
-
-                const element = document.getElementById(`task-card-${taskId}`);
-
-                element.addEventListener('dragstart', function () {
-                    draggedItem = element;
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 0);
-                });
-
-                element.addEventListener('dragend', function () {
-                    setTimeout(() => {
-                        draggedItem.style.display = 'block';
-                        draggedItem = null;
-                    }, 0);
-                });
             }
         }
     } catch (error) {
@@ -120,6 +112,14 @@ class TaskEditingModal extends HTMLElement {
                                 <div class="mb-3">
                                     <label for="taskContent" class="form-label">Content</label>
                                     <textarea class="form-control" id="taskContent" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="taskPriority" class="form-label">Priority</label>
+                                    <select class="form-select" id="taskPriority">
+                                        <option value="Main" class="badge rounded-pill bg-primary text-white">Main</option>
+                                        <option value="Side" class="badge rounded-pill bg-secondary text-white">Side</option>
+                                        <option value="Critical" class="badge rounded-pill bg-danger text-white">Critical</option>
+                                        </select>
                                 </div>
                                 <input type="hidden" id="taskId">
                             </form>
