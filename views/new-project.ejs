@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <!--    icons-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="styles/main.css">
   <script src="components/theme-switcher.js"></script>
@@ -15,52 +16,31 @@
 </head>
 <body class="default-theme">
   <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/home"><img src="/Images/logo.png" alt="Logo"></a>
     <div class="collapse navbar-collapse">
         <nav-menu></nav-menu>
     </div>
     <custom-timer></custom-timer>
     <theme-switcher></theme-switcher>
-  </nav>
-
-  <div class="container mt-5">
-    <div class="card">
-      <div class="card-header">
-        <h2>Create New Project</h2>
-      </div>
-      <div class="card-body">
+</nav>
+    <div>
+        <h1>Create New Project</h1>
         <form action="/projects" method="POST">
-          <div class="form-group">
             <label for="name">Project Name:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter project name ....." required>
-          </div>
-          <div class="form-group">
+            <input type="text" id="name" name="name" placeholder="Enter project name ....." required>
+        
             <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Project Details ...."></textarea>
-            <small id="descriptionHelp" class="form-text text-muted">You have <span id="charCount">0</span> characters entered.</small>
-          </div>
-          <div class="form-group">
-            <label for="deadline">Project Deadline:</label>
-            <input type="date" class="form-control" id="deadline" name="deadline">
-          </div>
-          
-          <button type="submit" class="btn btn-primary btn-block">Create Project</button>
-        </form>
-      </div>
+            <textarea id="description" name="description" placeholder="project Details ...."></textarea>
+        
+            <button type="submit">Create Project</button>
+        </form>        
     </div>
-  </div>
 
-  <custom-footer></custom-footer>
-
+    <!-- Footer -->
+    <custom-footer></custom-footer>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <script>
-    // Character counter for the description field
-    document.getElementById('description').addEventListener('input', function () {
-      const charCount = this.value.length;
-      document.getElementById('charCount').textContent = charCount;
-    });
-  </script>
 </body>
 </html>

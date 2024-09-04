@@ -1,9 +1,11 @@
+<!-- projects.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <!--    icons-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="styles/main.css">
   <script src="components/theme-switcher.js"></script>
@@ -22,9 +24,8 @@
         <custom-timer></custom-timer>
         <theme-switcher></theme-switcher>
     </nav>
-    
-    <!-- Theme Switcher -->
-    <!-- <div class="theme-switcher container my-3">
+     <!-- Theme Switcher -->
+     <div class="theme-switcher container my-3">
         <label for="theme-select">Choose a Theme:</label>
         <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
             <option value="default-theme">Default</option>
@@ -32,37 +33,19 @@
             <option value="pink-theme">Pink</option>
             <option value="teal-theme">Teal</option>
         </select>
-    </div> -->
-
-    <div class="container mt-5">
-        <h1 class="mb-4">Projects</h1>
-        <a href="/projects/new" class="btn btn-primary mb-4">Add New Project</a>
-
-        <div class="row">
-            <% projects.forEach(project => { %>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= project.name %></h5>
-                            <p class="card-text">Project ID: <%= project.id %></p>
-                            <div class="d-flex justify-content-between">
-                                <a href="/projects/<%= project.id %>/edit-projects" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                <form action="/projects/<%= project.id %>/delete" method="POST" class="ml-auto">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <% }) %>
-        </div>
     </div>
-
-    <!-- Footer -->
-    <custom-footer></custom-footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <h1>Projects</h1>
+<a href="/projects/new">Add New Project</a>
+<ul>
+    <% projects.forEach(project => { %>
+        <li>
+            <a href="/projects<%= project.id %>"><%= project.name %></a>
+            <form action="/projects<%= project.id %>/delete" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+            <a href="/projects<%= project.id %>/edit-projects">Edit</a>
+        </li>
+    <% }) %>
+</ul>
 </body>
 </html>
