@@ -134,3 +134,56 @@ function deleteNote() {
 }
 
 customElements.define('notepad-modal', NotepadModal);
+function saveNoteToDB(content) {
+    fetch('/api/notes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Note saved to DB:', data);
+      })
+      .catch(error => {
+        console.error('Error saving note:', error);
+      });
+  }
+  
+  // Call this function when you want to save the note
+  const content = document.querySelector('#notepadContent').innerHTML;
+  saveNoteToDB(content);
+  
+  function deleteNoteFromDB(noteId) {
+    fetch(`/api/notes/${noteId}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Note deleted from DB:', data);
+      })
+      .catch(error => {
+        console.error('Error deleting note:', error);
+      });
+  }
+  
+  // Trigger this function on note deletion
+  deleteNoteFromDB(noteId);
+  
+  function restoreNoteFromDB(noteId) {
+    fetch(`/api/deleted-notes/restore/${noteId}`, {
+      method: 'POST',
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Note restored:', data);
+      })
+      .catch(error => {
+        console.error('Error restoring note:', error);
+      });
+  }
+  
+  // Call this function when restoring the note
+  restoreNoteFromDB(noteId);
+  

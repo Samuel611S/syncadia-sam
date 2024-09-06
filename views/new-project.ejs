@@ -22,32 +22,65 @@
     <theme-switcher></theme-switcher>
   </nav>
 
-  <div class="container mt-5">
-    <div class="card">
-      <div class="card-header">
-        <h2>Create New Project</h2>
-      </div>
-      <div class="card-body">
-        <form action="/projects" method="POST">
-          <div class="form-group">
-            <label for="name">Project Name:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter project name ....." required>
-          </div>
-          <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Project Details ...."></textarea>
-            <small id="descriptionHelp" class="form-text text-muted">You have <span id="charCount">0</span> characters entered.</small>
-          </div>
-          <div class="form-group">
-            <label for="deadline">Project Deadline:</label>
-            <input type="date" class="form-control" id="deadline" name="deadline">
-          </div>
-          
-          <button type="submit" class="btn btn-primary btn-block">Create Project</button>
-        </form>
-      </div>
-    </div>
+  <div class="card-header">
+    <h2>Create New Project</h2>
   </div>
+  <div class="card-body">
+    <form action="/projects" method="POST">
+      <div class="form-group">
+        <label for="name">Project Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter project name ....." required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Project Details ...."></textarea>
+        <small id="descriptionHelp" class="form-text text-muted">You have <span id="charCount">0</span> characters entered.</small>
+      </div>
+      <div class="form-group">
+        <label for="deadline">Project Deadline:</label>
+        <input type="date" class="form-control" id="deadline" name="deadline">
+      </div>
+
+      <!-- Collapsible Task Allocation Section -->
+      <h5>Allocate Tasks</h5>
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#task-allocation" aria-expanded="false" aria-controls="task-allocation">
+        Add Task
+      </button>
+      <div id="task-allocation" class="collapse">
+          <div id="task-container">
+              <!-- Task 1 -->
+              <div class="task-form">
+                  <div class="form-group">
+                      <label for="task_title_1">Task Title:</label>
+                      <input type="text" class="form-control" id="task_title_1" name="tasks[0][title]" placeholder="Enter task title">
+                  </div>
+                  <div class="form-group">
+                      <label for="task_content_1">Task Content:</label>
+                      <textarea class="form-control" id="task_content_1" name="tasks[0][content]" rows="2" placeholder="Task details"></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label for="task_status_1">Task Status:</label>
+                      <select class="form-control" id="task_status_1" name="tasks[0][status]">
+                          <option value="TODO">TODO</option>
+                          <option value="IN-PROGRESS">In Progress</option>
+                          <option value="DONE">Done</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="task_due_date_1">Task Due Date:</label>
+                      <input type="date" class="form-control" id="task_due_date_1" name="tasks[0][due_date]">
+                  </div>
+
+                <button type="button" class="btn btn-secondary mb-3" id="addTaskBtn">Add Another Task</button>
+              </div>
+          </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Create Project</button>
+    </form>
+  </div>
+</div>
+</div>
+
 
   <custom-footer></custom-footer>
 
@@ -57,10 +90,43 @@
   
   <script>
     // Character counter for the description field
-    document.getElementById('description').addEventListener('input', function () {
-      const charCount = this.value.length;
-      document.getElementById('charCount').textContent = charCount;
-    });
+  document.getElementById('description').addEventListener('input', function () {
+    const charCount = this.value.length;
+    document.getElementById('charCount').textContent = charCount;
+  });
+
+  // Add new task dynamically
+  let taskCount = 1;
+  document.getElementById('addTaskBtn').addEventListener('click', function () {
+    taskCount++;
+    const taskContainer = document.getElementById('task-container');
+    
+    const newTaskForm = `
+      <div class="task-form">
+        <div class="form-group">
+          <label for="task_title_${taskCount}">Task Title:</label>
+          <input type="text" class="form-control" id="task_title_${taskCount}" name="tasks[${taskCount - 1}][title]" placeholder="Enter task title">
+        </div>
+        <div class="form-group">
+          <label for="task_content_${taskCount}">Task Content:</label>
+          <textarea class="form-control" id="task_content_${taskCount}" name="tasks[${taskCount - 1}][content]" rows="2" placeholder="Task details"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="task_status_${taskCount}">Task Status:</label>
+          <select class="form-control" id="task_status_${taskCount}" name="tasks[${taskCount - 1}][status]">
+            <option value="TODO">TODO</option>
+            <option value="IN-PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="task_due_date_${taskCount}">Task Due Date:</label>
+          <input type="date" class="form-control" id="task_due_date_${taskCount}" name="tasks[${taskCount - 1}][due_date]">
+        </div>
+      </div>`;
+
+    taskContainer.insertAdjacentHTML('beforeend', newTaskForm);
+  });
   </script>
 </body>
 </html>

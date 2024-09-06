@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncadia - Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="styles.css" rel="stylesheet">
+    <script src="components/theme-switcher.js"></script>
+    <script src="components/nav-menu.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="scripts/theme-selector.js"></script>
+    <script src="scripts/signin.js"></script>
+</head>
+<body class="default-theme">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/task-manager"><img src="/images/logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <nav-menu></nav-menu>
+        </div>
+        <theme-switcher></theme-switcher>
+    </nav> -->
+    <!-- Login Form -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <div class="text-center">
+                        <img src="images/login-icon.png" alt="Profile Icon" class="img-fluid mb-3" style="width: 150px;">
+                    </div>
+
+                    <!-- Display message if available -->
+                    <% if (typeof message !== 'undefined' && message) { %>
+                        <p style="color: red;"><%= message %></p>
+                    <% } else if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger">
+                            <%= error %>
+                        </div>
+                    <% } %>
+                    <!-- Login Form -->
+                    <form id="login-form" action="/login" method="POST" >
+                        <div class="form-group">
+                            <label for="loginEmail">Email address</label>
+                            <input type="text" class="form-control" id="loginEmail" name="email" placeholder="Enter Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-group">
+                                <input type="password" id="loginPassword" class="form-control" name="password" placeholder="Enter your password" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password" data-target="#loginPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block mt-3">Login</button>
+                        <div class="text-center mt-3">
+                            <a href="#" id="forgot-password-link" class="text-secondary" data-toggle="modal" data-target="#forgotPasswordModal">Forgot password?</a>
+                            
+                        </div>
+                    </form>  
+                    <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="forgot-password-form">
+                        <div class="form-group">
+                            <label for="resetEmail">Enter your email address</label>
+                            <input type="email" class="form-control" id="resetEmail" placeholder="Enter email">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+                        <!-- <i class="fa fa-eye" id="togglePasswordIcon"></i> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

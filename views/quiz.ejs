@@ -72,96 +72,18 @@
         </div>
         <div class="modal-body">
           <form id="quizForm">
+            <% questions.forEach((question, index) => { %>
               <div class="form-group">
-                  <label for="question1">1. How do you typically plan your day?</label>
-                  <select id="question1" name="question1" class="form-control">
-                      <option value="option1">A. I create a detailed to-do list.</option>
-                      <option value="option2">B. I have a general idea of what I want to accomplish.</option>
-                      <option value="option3">C. I plan as I go.</option>
-                      <option value="option4">D. I rarely plan my day.</option>
-                  </select>
+                <label for="question<%= index + 1 %>"><%= question.question %></label>
+                <select id="question<%= index + 1 %>" name="question<%= index + 1 %>" class="form-control">
+                  <option value="option1"><%= question.option1 %></option>
+                  <option value="option2"><%= question.option2 %></option>
+                  <option value="option3"><%= question.option3 %></option>
+                  <option value="option4"><%= question.option4 %></option>
+                </select>
               </div>
-              <div class="form-group">
-                  <label for="question2">2. What is your approach to handling large tasks?</label>
-                  <select id="question2" name="question2" class="form-control">
-                      <option value="option1">A. Break them down into smaller tasks.</option>
-                      <option value="option2">B. Tackle them all at once.</option>
-                      <option value="option3">C. Delegate parts of the task to others.</option>
-                      <option value="option4">D. Procrastinate until the last minute.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question3">3. How do you prioritize your tasks?</label>
-                  <select id="question3" name="question3" class="form-control">
-                      <option value="option1">A. Based on deadlines.</option>
-                      <option value="option2">B. By importance and urgency.</option>
-                      <option value="option3">C. Whichever seems easiest to complete.</option>
-                      <option value="option4">D. I don’t have a specific prioritization method.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question4">4. How do you stay focused during work?</label>
-                  <select id="question4" name="question4" class="form-control">
-                      <option value="option1">A. I minimize distractions and stay on task.</option>
-                      <option value="option2">B. I take short breaks to stay refreshed.</option>
-                      <option value="option3">C. I work in bursts of high productivity.</option>
-                      <option value="option4">D. I struggle to stay focused.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question5">5. How do you handle unexpected interruptions?</label>
-                  <select id="question5" name="question5" class="form-control">
-                      <option value="option1">A. I quickly address them and return to work.</option>
-                      <option value="option2">B. I set aside time later to deal with them.</option>
-                      <option value="option3">C. I try to multitask.</option>
-                      <option value="option4">D. They often derail my progress.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question6">6. What is your preferred method of task management?</label>
-                  <select id="question6" name="question6" class="form-control">
-                      <option value="option1">A. Using digital tools or apps.</option>
-                      <option value="option2">B. Writing things down on paper.</option>
-                      <option value="option3">C. Keeping track mentally.</option>
-                      <option value="option4">D. I don’t use any specific method.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question7">7. How do you deal with procrastination?</label>
-                  <select id="question7" name="question7" class="form-control">
-                      <option value="option1">A. I use techniques like the Pomodoro Technique.</option>
-                      <option value="option2">B. I set deadlines to push myself.</option>
-                      <option value="option3">C. I break tasks into smaller, manageable pieces.</option>
-                      <option value="option4">D. I often struggle to overcome procrastination.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question8">8. What time of day do you feel most productive?</label>
-                  <select id="question8" name="question8" class="form-control">
-                      <option value="option1">A. Early morning.</option>
-                      <option value="option2">B. Late morning.</option>
-                      <option value="option3">C. Afternoon.</option>
-                      <option value="option4">D. Evening or night.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question9">9. How do you track your progress on long-term projects?</label>
-                  <select id="question9" name="question9" class="form-control">
-                      <option value="option1">A. I set milestones and track them regularly.</option>
-                      <option value="option2">B. I review progress weekly.</option>
-                      <option value="option3">C. I track progress sporadically.</option>
-                      <option value="option4">D. I don’t track progress regularly.</option>
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label for="question10">10. What motivates you to complete tasks?</label>
-                  <select id="question10" name="question10" class="form-control">
-                      <option value="option1">A. The satisfaction of completing something.</option>
-                      <option value="option2">B. External rewards or recognition.</option>
-                      <option value="option3">C. The fear of missing deadlines.</option>
-                      <option value="option4">D. I struggle with motivation.</option>
-                  </select>
-              </div>
+            <% }); %>
+       </div>
             <!-- Add more questions here -->
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Submit</button>

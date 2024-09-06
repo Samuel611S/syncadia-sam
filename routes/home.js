@@ -15,10 +15,10 @@ router.get("/home", (req, res) => {
   res.render("home"); // Directly render 'home.ejs'
 });
 
-// Root route redirects to the home page
-router.get("/", (req, res) => {
-  res.redirect("/home");
-});
+// // Root route redirects to the home page
+// router.get("/", (req, res) => {
+//   res.redirect("/home");
+// });
 
 // Export the router object so index.js can access it
 module.exports = router;
