@@ -81,11 +81,10 @@ router.put("/tasks/:id", (req, res) => {
 router.post("/tasks", (req, res) => {
   const body = req.body;
 
-  if (Object.keys(body) === 0) {
+  if (Object.keys(body).length === 0) {
     return res.status(400).json({ error: "Body is required" });
   }
 
-  // Construct the INSERT query
   const constructQueryInsert = (body) => {
     const keys = Object.keys(body);
     const values = Object.values(body);
@@ -99,20 +98,16 @@ router.post("/tasks", (req, res) => {
   };
 
   const { statement, values } = constructQueryInsert(body);
-
   const params = [...values, "TODO"];
 
   db.run(statement, params, function (err) {
     if (err) {
-      console.error("Error creating task status:", err.message);
+      console.error("Error creating task:", err.message);
       return res.status(500).json({ error: "Internal server error" });
     }
 
-    if (this.changes === 0) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    return res.status(200).json({ taskId: this.lastID });
+    // Respond with success status
+    return res.status(200).json({ success: true });
   });
 });
 

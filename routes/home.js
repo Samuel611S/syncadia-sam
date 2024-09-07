@@ -16,32 +16,46 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 // Define the authentication middleware
 const authentication = (req, res, next) => {
   const token = req.cookies.auth_token;
-  if (!token) return res.redirect('/Signup'); // Redirect to signup if no token
+
+  // If no token, allow access as a guest user
+  if (!token) {
+    req.user = null; // No authenticated user
+    return next();
+  }
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.redirect('/Signup'); // Redirect to signup if token is invalid
-    req.user = user;
+    if (err) {
+      req.user = null; // Token is invalid, proceed as guest
+      return next();
+    }
+    req.user = user; // Valid token, user is authenticated
     next();
   });
 };
 
 // Define the route to render the home page
 router.get("/home", authentication, (req, res) => {
-  const userId = req.user.id; // Get user ID from the JWT token
+  // If user is authenticated, get their info from the database
+  if (req.user) {
+    const userId = req.user.id; // Get user ID from the JWT token
 
-  const query = 'SELECT name FROM users WHERE id = ?';
-  global.db.get(query, [userId], function(err, row) {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).render('home', { error: 'Server error' });
-    }
+    const query = 'SELECT name FROM users WHERE id = ?';
+    global.db.get(query, [userId], function (err, row) {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).render('home', { error: 'Server error', userName: null });
+      }
 
-    if (row) {
-      res.render('home', { userName: row.name }); // Pass 'userName' to the view
-    } else {
-      res.render('home', { userName: null }); // Pass null if user not found
-    }
-  });
+      if (row) {
+        res.render('home', { userName: row.name }); // Pass 'userName' to the view
+      } else {
+        res.render('home', { userName: null }); // Pass null if user not found
+      }
+    });
+  } else {
+    // Render home page for unauthenticated guest users
+    res.render('home', { userName: null });
+  }
 });
 
 // Root route redirects to the home page
@@ -50,4 +64,4 @@ router.get("/", (req, res) => {
 });
 
 // Export the router object so index.js can access it
-module.exports = router;
+module.exports = router;

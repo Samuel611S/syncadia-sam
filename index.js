@@ -55,10 +55,6 @@ app.use('/', featuresRoute);
 const projectsRoute = require('./routes/projects');
 app.use('/', projectsRoute);
 
-
-
-
-
 // Add all the route handlers in taskRoutes to the app under the path /tasks
 const quizRoute = require('./routes/quiz');
 app.use('/', quizRoute);

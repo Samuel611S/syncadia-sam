@@ -37,6 +37,9 @@ function deleteTask(id) {
         if (task) {
             task.remove();
         }
+        
+        // Refresh the page to ensure all changes are reflected
+        window.location.reload();
     }
 }
 
@@ -50,8 +53,9 @@ async function updateOrCreateTask() {
         if (id) {
             const success = await TaskManager.updateTask(id, { title, content, priority });
             if (success) {
+                // Optionally update the UI directly if needed
                 const { cardTitle, cardContent } = getCardInfo(id);
-    
+
                 if (cardTitle && cardContent) {
                     cardTitle.textContent = title;
                     cardContent.textContent = content;
@@ -81,11 +85,15 @@ async function updateOrCreateTask() {
                 todoColumn.insertAdjacentHTML('beforeend', card);
             }
         }
+
+        // Close the modal
+        closeEditModal();
+
+        // Refresh the page
+        window.location.reload();
     } catch (error) {
         console.log(`Could not update task: ${error.message}`);
     }
-
-    closeEditModal();
 }
 
 function closeEditModal() {
