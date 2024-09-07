@@ -30,10 +30,12 @@ CREATE TABLE IF NOT EXISTS Tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     project_id INTEGER,
-    title TEXT NOT Null,
+    title TEXT NOT NULL,
     content TEXT NOT NULL,
     status VARCHAR(20) NOT NULL CHECK (status IN('TODO', 'IN-PROGRESS', 'DONE')),
+    priority VARCHAR(10) NOT NULL CHECK (priority IN('Main', 'Side', 'Critical')) DEFAULT 'Main',
     due_date DATE,
+    tag VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (project_id) REFERENCES Projects(id)
 );
