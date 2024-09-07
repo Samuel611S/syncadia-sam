@@ -405,7 +405,6 @@ footer ul li a:hover {
     color: green;
 }
 
-<<<<<<< HEAD
 /* Style for the password toggle button */
 .toggle-password {
     cursor: pointer;
@@ -440,7 +439,6 @@ footer ul li a:hover {
 .toggle-password:active {
     background-color: #dee2e6;
 }
-=======
 .pill-badge {
     display: inline-block;
     padding: 0.2em 0.6em;
@@ -454,4 +452,3 @@ footer ul li a:hover {
 .bg-primary { background-color: #007bff; }
 .bg-secondary { background-color: #6c757d; }
 .bg-danger { background-color: #dc3545; }
->>>>>>> origin/sam-4

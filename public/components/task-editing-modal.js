@@ -23,7 +23,7 @@ function openEditModal(id) {
         document.getElementById('taskId').value = '';
         document.getElementById('taskTitle').value = '';
         document.getElementById('taskContent').value = '';
-        document.getElementById('taskPriority').value = 'primary';  // Default to primary
+        document.getElementById('taskPriority').value = 'main';  // Default to primary
     }
 
     editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
@@ -45,7 +45,7 @@ async function updateOrCreateTask() {
         const id = document.getElementById('taskId').value;
         const title = document.getElementById('taskTitle').value;
         const content = document.getElementById('taskContent').value;
-        const priority = document.getElementById('taskPriority').value || 'primary'; // Default to 'primary'
+        const priority = document.getElementById('taskPriority').value || 'main'; // Default to 'primary'
 
         if (id) {
             const success = await TaskManager.updateTask(id, { title, content, priority });
