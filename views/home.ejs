@@ -26,6 +26,7 @@
                 <!-- <li class="nav-item"><a class="nav-link" href="/Signup">SignUp/Login</a></li> -->
                 <% if (userName !== undefined && userName !== null) { %>
                     <li class="nav-item"><a class="nav-link" href="#">Welcome, <%= userName %>!</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/signout">Sign Out</a></li>
                   <% } else { %>
                     <li class="nav-item"><a class="nav-link" href="/Signup">SignUp/Login</a></li>
                   <% } %>                

@@ -146,5 +146,13 @@ router.post('/forgot-password', (req, res) => {
   
   res.status(200).json({ success: true, message: 'Password reset link sent' });
 });
+
+// Sign-out route
+router.get('/signout', (req, res) => {
+  // Clear the auth token from cookies
+  res.clearCookie('auth_token');
+  // Redirect to the login page or home page
+  res.redirect('/login'); // or '/home' if you prefer
+});
 // Export the router object so index.js can access it
 module.exports = router;

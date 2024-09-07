@@ -404,3 +404,38 @@ footer ul li a:hover {
     font-size: 18px;
     color: green;
 }
+
+/* Style for the password toggle button */
+.toggle-password {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.toggle-password i {
+    font-size: 1.25rem; /* Adjust icon size if needed */
+    color: #495057; /* Color to match the form control text color */
+}
+
+/* Ensure the button is properly aligned with the input field */
+.input-group .input-group-append {
+    display: flex;
+    align-items: center;
+}
+
+/* Optional: Add focus style for better UX */
+.input-group:focus-within .toggle-password {
+    box-shadow: inset 0 0 0 2px rgba(38, 143, 255, 0.5);
+}
+
+/* Optional: Hover effect for the button */
+.toggle-password:hover {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+}
+
+/* Optional: Active state styles */
+.toggle-password:active {
+    background-color: #dee2e6;
+}

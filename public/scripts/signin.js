@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const themeSelect = document.getElementById("theme-select");
     const loginTab = document.getElementById('login-tab');
     const signupTab = document.getElementById('signup-tab');
     const loginForm = document.getElementById('login-form');
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
+            const password = document.getElementById('loginPassword').value;
 
     fetch('/login', {
         method: 'POST',
@@ -91,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
         signupForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const name = document.getElementById('signupName').value;
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
 
     fetch('/signup', {
         method: 'POST',
@@ -118,7 +117,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Show/Hide password functionality
     document.querySelectorAll('.toggle-password').forEach(button => {
         button.addEventListener('click', function() {
+            // Get the target input field
             const targetInput = document.querySelector(this.dataset.target);
+            
+            // Toggle the password visibility
             if (targetInput.type === "password") {
                 targetInput.type = "text";
                 this.querySelector('i').classList.remove('fa-eye');

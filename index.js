@@ -29,6 +29,10 @@ global.db = new sqlite3.Database('./database.db',function(err){
 });
 
 // Add all the route handlers in taskRoutes to the app under the path /tasks
+const homeRoute = require('./routes/home');
+app.use('/', homeRoute);
+
+// Add all the route handlers in taskRoutes to the app under the path /tasks
 const taskRoutes = require('./routes/tasks');
 app.use('/', taskRoutes);
 
@@ -52,9 +56,7 @@ const projectsRoute = require('./routes/projects');
 app.use('/', projectsRoute);
 
 
-// Add all the route handlers in taskRoutes to the app under the path /tasks
-const homeRoute = require('./routes/home');
-app.use('/', homeRoute);
+
 
 
 // Add all the route handlers in taskRoutes to the app under the path /tasks
