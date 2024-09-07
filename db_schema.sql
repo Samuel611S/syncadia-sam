@@ -139,7 +139,6 @@ CREATE TABLE IF NOT EXISTS QuizResults (
 
 
 -- Setup tasks
-INSERT INTO Users (name, email, password) VALUES ('John Sam', 'johnsam@example.com', 'pas$ord');
 
 INSERT INTO Tasks (title,content, status) VALUES ('title','this is my task content', 'TODO'); 
 INSERT INTO Tasks (title, content, status) VALUES ('title','this is my task content', 'IN-PROGRESS'); 

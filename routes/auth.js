@@ -26,9 +26,7 @@ router.get('/Signup', (req, res) => {
       error: req.query.error || ''
     });
   });
-router.get("/",(req,res)=>{
-  res.redirect("/Signup");
-})
+
 router.get('/login', (req, res) => {
   res.render('login', { 
       message: req.query.message || '', 
@@ -98,7 +96,7 @@ router.post('/login', [
 
   const { email, password } = req.body;
   
-  // Sanitize inputs (optional)
+  // Sanitize inputs
   const sanitizedEmail = sanitizeHtml(email);
   const sanitizedPassword = sanitizeHtml(password);
 
@@ -109,8 +107,7 @@ router.post('/login', [
       return res.status(500).render('login', { error: 'Database error' });
     }
     if (!user) {
-      // return res.redirect('/login?message=User already exists. Please log in.');
-      return res.redirect('/Signup?error=User not found.Please sign up here ');
+      return res.redirect('/Signup?error=User not found. Please sign up here ');
     }
 
     bcrypt.compare(sanitizedPassword, user.password, (err, match) => {
@@ -139,6 +136,10 @@ router.post('/login', [
   });
 });
 
+// router.get("/home", authentication, (req, res) => {
+//   const user = req.user || null; // Check if user is authenticated
+//   res.render("home", { user }); // Pass user info to the view
+// });
 
 router.post('/forgot-password', (req, res) => {
   const { email } = req.body;
