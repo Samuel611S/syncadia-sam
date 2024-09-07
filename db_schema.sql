@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS TeamMembers;
 DROP TABLE IF EXISTS QuizResults;
 DROP TABLE IF EXISTS Deleted_Notes;
 
-
 -- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
 PRAGMA foreign_keys=ON;
 
@@ -19,12 +18,14 @@ BEGIN TRANSACTION;
 -- 1. Users Table
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+--2. Task table 
 CREATE TABLE IF NOT EXISTS Tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS Projects (
     user_id INTEGER,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    deadline DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
@@ -125,6 +127,7 @@ CREATE TABLE IF NOT EXISTS Quizzes (
     option4 TEXT NOT NULL
 );
 
+
 -- 12. Quiz Results Table
 CREATE TABLE IF NOT EXISTS QuizResults (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -136,7 +139,6 @@ CREATE TABLE IF NOT EXISTS QuizResults (
 
 
 -- Setup tasks
-INSERT INTO Users (username, email, password) VALUES ('John Sam', 'johnsam@example.com', 'pas$ord');
 
 INSERT INTO Tasks (title,content, status) VALUES ('title','this is my task content', 'TODO'); 
 INSERT INTO Tasks (title, content, status) VALUES ('title','this is my task content', 'IN-PROGRESS'); 

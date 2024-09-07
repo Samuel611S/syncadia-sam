@@ -1,6 +1,6 @@
 /**
- * tasks.js
- * These are example routes for task management
+ * features.js
+ * 
  * This shows how to correctly structure your routes for the project
  * and the suggested pattern for retrieving data by executing queries
  *

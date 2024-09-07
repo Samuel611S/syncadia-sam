@@ -44,12 +44,26 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title"><%= project.name %></h5>
-                            <p class="card-text">Project ID: <%= project.id %></p>
+                            <p class="card-text">Project Deadline: <%= project.deadline %></p>
+                             <!-- Display tasks associated with the project -->
+                            <h6>Tasks:</h6>
+                            <ul class="list-group">
+                                <% if (project.tasks && project.tasks.length > 0) { %>
+                                    <% project.tasks.forEach(task => { %>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><%= task.title %> - <%= task.status %></span>
+                                            <span>Due: <%= task.due_date %></span>
+                                        </li>
+                                    <% }) %>
+                                <% } else { %>
+                                    <li class="list-group-item">No tasks available for this project</li>
+                                <% } %>
+                            </ul>
                             <div class="d-flex justify-content-between">
-                                <a href="/projects/<%= project.id %>/edit-projects" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                <a href="/projects/<%= project.id %>/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
                                 <form action="/projects/<%= project.id %>/delete" method="POST" class="ml-auto">
                                     <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                </form>
+                                  </form>
                             </div>
                         </div>
                     </div>
