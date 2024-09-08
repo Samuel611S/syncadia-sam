@@ -1,13 +1,3 @@
-/**
- * projects.js
- * These are example routes for task management
- * This shows how to correctly structure your routes for the project
- * and the suggested pattern for retrieving data by executing queries
- *
- * NB. it's better NOT to use arrow functions for callbacks with the SQLite library
- *
- */
-
 const express = require("express");
 const jwt =require("jsonwebtoken");
 
@@ -19,29 +9,25 @@ const authentication = (req, res, next) => {
   if (!token) return res.sendStatus(401); // Unauthorized if no token
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403); // Forbidden if token is invalid
-    req.user = user; // Attach user info to the request
-    next(); // Proceed to the next middleware or route handler
+    if (err) return res.sendStatus(403); // Forbidden if user token is invalid
+    req.user = user; 
+    next();
   });
 };
 
-// Protect routes using the authentication middleware
+// Middleware authentication
 router.get('/protected-endpoint', authentication, (req, res) => {
   res.send(`Welcome, user with ID: ${req.user.id}`);
 });
-
 
 router.get("/projects/new", authentication, (req, res) => {
   res.render("new-project");
 });
 
-
-
 router.post('/projects', authentication, async (req, res) => {
   const { name, description, deadline, tasks } = req.body;
 
   try {
-    // Insert the project first
     const result = await new Promise((resolve, reject) => {
       const query = `
         INSERT INTO Projects (user_id, name, description, deadline)
@@ -55,10 +41,8 @@ router.post('/projects', authentication, async (req, res) => {
 
     const projectId = result.lastID;
 
-    // Filter out empty tasks
     const validTasks = (tasks || []).filter(task => task.title && task.status);
 
-    // Insert each valid task associated with the project
     if (validTasks.length > 0) {
       await Promise.all(validTasks.map(task => {
         return new Promise((resolve, reject) => {
@@ -81,7 +65,6 @@ router.post('/projects', authentication, async (req, res) => {
   }
 });
 
-// Display projects with tasks
 router.get("/projects", authentication, async (req, res) => {
   try {
     const projects = await new Promise((resolve, reject) => {
@@ -98,7 +81,6 @@ router.get("/projects", authentication, async (req, res) => {
       });
     });
 
-    // Group tasks under each project
     const projectsWithTasks = projects.reduce((acc, row) => {
       const project = acc.find(p => p.id === row.id);
       if (project) {
@@ -130,7 +112,6 @@ router.get("/projects", authentication, async (req, res) => {
   }
 });
 
-// Render edit project form
 router.get('/projects/:id/edit', authentication, (req, res) => {
   const projectId = req.params.id;
   const projectQuery = "SELECT * FROM Projects WHERE id = ?";
@@ -153,7 +134,6 @@ router.get('/projects/:id/edit', authentication, (req, res) => {
   });
 });
 
-// Handle project update
 router.post("/projects/:id/edit", authentication, (req, res) => {
   const projectId = req.params.id;
   const { name, description, deadline, tasks } = req.body;
@@ -165,7 +145,6 @@ router.post("/projects/:id/edit", authentication, (req, res) => {
       res.status(500).send("Error updating project");
     } else {
       try {
-        // Delete existing tasks for the project
         await new Promise((resolve, reject) => {
           const deleteQuery = "DELETE FROM Tasks WHERE project_id = ?";
           global.db.run(deleteQuery, [projectId], (err) => {
@@ -173,8 +152,7 @@ router.post("/projects/:id/edit", authentication, (req, res) => {
             resolve();
           });
         });
-
-        // Insert new tasks
+        // Inserting new tasks
         const validTasks = (tasks || []).filter(task => task.title && task.status);
         if (validTasks.length > 0) {
           await Promise.all(validTasks.map(task => {
@@ -200,38 +178,33 @@ router.post("/projects/:id/edit", authentication, (req, res) => {
   });
 });
 
-
-// Handle project deletion
+// Project deletion
 router.post("/projects/:id/delete", authentication, (req, res) => {
   const projectId = req.params.id;
   const query = "DELETE FROM Tasks WHERE project_id = ?";
-  // Delete tasks associated with the project first
   global.db.run(query, [projectId], (err) => {
     if (err) {
       console.error("Error deleting tasks:", err.message);
       return res.status(500).send("Server Error");
     }
-
-    // Then delete the project
     const query2 = "DELETE FROM Projects WHERE id = ?";
     global.db.run(query2, [projectId], (err) => {
       if (err) {
         console.error("Error deleting project:", err.message);
         return res.status(500).send("Server Error");
       }
-      res.redirect('/projects'); // Redirect back to the projects page
+      res.redirect('/projects'); // Redirect to projects page
     });
   });
 });
 
-
-// Render new task form
+//New task form
 router.get("/projects/:id/tasks/new", authentication, (req, res) => {
   const projectId = req.params.id;
   res.render("new-task", { projectId });
 });
 
-// Handle task creation
+// Task creation
 router.post("/projects/:id/tasks", authentication, (req, res) => {
   const projectId = req.params.id;  
   const { title, content, status, due_date } = req.body;
@@ -244,9 +217,8 @@ router.post("/projects/:id/tasks", authentication, (req, res) => {
       console.error("Error creating task:", err.message);
       return res.status(500).send("Server Error");
     }
-    res.redirect(`/projects/${projectId}`);  // Redirect back to the project page
+    res.redirect(`/projects/${projectId}`);  // Redirect to the project page
   });
 });
-
 // Export the router object so index.js can access it
 module.exports = router;

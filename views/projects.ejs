@@ -1,69 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="styles/main.css">
-  <script src="components/theme-switcher.js"></script>
-  <script src="components/nav-menu.js"></script>
-  <script src="components/footer.js"></script>
-  <script src="scripts/timer.js"></script>
-  <script src="scripts/theme-selector.js"></script>
-  <title>Projects - Syncadia</title>
-</head>
+    <head>
+        <!-- Meta tags for character encoding and responsive design -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Bootstrap CSS for styling -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        
+        <!-- Link to custom CSS file -->
+        <link rel="stylesheet" href="styles/main.css">
+        
+        <!-- JavaScript for custom components and functionalities -->
+        <script src="components/theme-switcher.js"></script>
+        <script src="components/nav-menu.js"></script>
+        <script src="components/footer.js"></script>
+        <script src="scripts/timer.js"></script>
+        <script src="scripts/theme-selector.js"></script>
+        <script src="scripts/quiz.js"></script>
+
+        <!-- Page title -->
+        <title>Quiz - Syncadia</title>
+    </head>
 <body class="default-theme">
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- Logo linked to home page -->
         <a class="navbar-brand" href="/home"><img src="/images/logo.png" alt="Logo"></a>
+
+        <!-- Navigation Menu Component -->
         <div class="collapse navbar-collapse">
             <nav-menu></nav-menu>
         </div>
+
+        <!-- Custom Timer and Theme Switcher Components -->
         <custom-timer></custom-timer>
         <theme-switcher></theme-switcher>
     </nav>
-    
-    <!-- Theme Switcher -->
-    <!-- <div class="theme-switcher container my-3">
-        <label for="theme-select">Choose a Theme:</label>
-        <select id="theme-select" class="form-control" style="width: 200px; display: inline-block;">
-            <option value="default-theme">Default</option>
-            <option value="dark-theme">Dark</option>
-            <option value="pink-theme">Pink</option>
-            <option value="teal-theme">Teal</option>
-        </select>
-    </div> -->
 
+    <!-- Main Content Section -->
     <div class="container mt-5">
         <h1 class="mb-4">Projects</h1>
+        <!-- Button to add a new project -->
         <a href="/projects/new" class="btn btn-primary mb-4">Add New Project</a>
 
+        <!-- Row to display projects -->
         <div class="row">
+            <!-- Loop through each project and display its details -->
             <% projects.forEach(project => { %>
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">
+                            <!-- Project name and deadline -->
                             <h5 class="card-title"><%= project.name %></h5>
                             <p class="card-text">Project Deadline: <%= project.deadline %></p>
-                             <!-- Display tasks associated with the project -->
+                            
+                            <!-- Display tasks associated with the project -->
                             <h6>Tasks:</h6>
                             <ul class="list-group">
+                                <!-- Check if the project has tasks, if yes, loop through them -->
                                 <% if (project.tasks && project.tasks.length > 0) { %>
                                     <% project.tasks.forEach(task => { %>
+                                        <!-- Display task title, status, and due date -->
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><%= task.title %> - <%= task.status %></span>
                                             <span>Due: <%= task.due_date %></span>
                                         </li>
                                     <% }) %>
+                                <!-- If no tasks available, display message -->
                                 <% } else { %>
                                     <li class="list-group-item">No tasks available for this project</li>
                                 <% } %>
                             </ul>
+
+                            <!-- Edit and Delete buttons -->
                             <div class="d-flex justify-content-between">
                                 <a href="/projects/<%= project.id %>/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                <!-- Form to delete project -->
                                 <form action="/projects/<%= project.id %>/delete" method="POST" class="ml-auto">
                                     <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                  </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -72,9 +91,10 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Component -->
     <custom-footer></custom-footer>
 
+    <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

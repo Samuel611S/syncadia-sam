@@ -1,13 +1,3 @@
-/**
- * tasks.js
- * These are example routes for task management
- * This shows how to correctly structure your routes for the project
- * and the suggested pattern for retrieving data by executing queries
- *
- * NB. it's better NOT to use arrow functions for callbacks with the SQLite library
- *
- */
-
 const express = require("express");
 const jwt =require("jsonwebtoken");
 
@@ -15,17 +5,17 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 const router = express.Router();
 
 const authentication = (req, res, next) => {
-  const token = req.cookies.auth_token; // Extract the token from the cookie
-  if (!token) return res.sendStatus(401); // Unauthorized if no token
+  const token = req.cookies.auth_token; 
+  if (!token) return res.sendStatus(401); // Unauthorized access if no token
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403); // Forbidden if token is invalid
-    req.user = user; // Attach user info to the request
-    next(); // Proceed to the next middleware or route handler
+    if (err) return res.sendStatus(403);
+    req.user = user; 
+    next();
   });
 };
 
-// Protect routes using the authentication middleware
+// Middleware authentication 
 router.get('/protected-endpoint', authentication, (req, res) => {
   res.send(`Welcome, user with ID: ${req.user.id}`);
 });

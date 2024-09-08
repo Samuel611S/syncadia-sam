@@ -1,63 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
     <title>Syncadia</title>
+
+    <!-- Bootstrap CSS for styling -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Link to custom CSS file -->
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- JavaScript for theme selection and custom components -->
     <script src="scripts/theme-selector.js"></script>
     <script src="components/theme-switcher.js"></script>
     <script src="components/nav-menu.js"></script>
     <script src="components/footer.js"></script>
-    
 </head>
+
 <body class="default-theme">
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/task-manager"><img src="/images/logo.png" alt="Logo"></a>
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- Logo linked to task manager -->
+        <a class="navbar-brand" href="/task-manager">
+            <img src="/images/logo.png" alt="Logo">
+        </a>
+
+        <!-- Navigation Menu -->
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/task-manager">Task Manager</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quiz">Quiz</a></li>
                 <li class="nav-item"><a class="nav-link" href="/features">Features</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="/Signup">SignUp/Login</a></li> -->
-                <% if (userName !== undefined && userName !== null) { %>
-                    <li class="nav-item"><a class="nav-link" href="#">Welcome, <%= userName %>!</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/signout">Sign Out</a></li>
-                  <% } else { %>
-                    <li class="nav-item"><a class="nav-link" href="/Signup">SignUp/Login</a></li>
-                  <% } %>                
-                  <a class="btn btn-outline-primary mr-3" href="#">Upgrade to Pro!</a>
-                </ul>
                 
+                <!-- Conditional rendering based on whether the user is logged in or not -->
+                <% if (userName !== undefined && userName !== null) { %>
+                    <!-- Display username if logged in -->
+                    <!-- <li class="nav-item"><a class="nav-link" href="#">Welcome, <%= userName %>!</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="/signout">Sign Out</a></li>
+                <% } else { %>
+                    <!-- Display SignUp/Login link if not logged in -->
+                    <li class="nav-item"><a class="nav-link" href="/Signup">SignUp/Login</a></li>
+                <% } %>
+            </ul>
         </div>
+
+        <!-- Theme Switcher Component -->
         <theme-switcher></theme-switcher>
     </nav>
-    
 
+    <!-- Main content section -->
     <div class="container my-5">
         <div class="row">
+            <!-- Text content on the left side -->
             <div class="col-md-6">
                 <h1>Syncadia</h1>
+
+                <!-- Welcome message if the user is logged in -->
+                <% if (userName !== undefined && userName !== null) { %>
+                    <p class="welcome-message">Welcome, <%= userName %>!</p>
+                <% } %>
+
                 <p class="textsub">Simplify Your Tasks, Boost Your Productivity</p>
                 <p class="text">Welcome to Syncadia, your ultimate solution for efficient task management. Our platform is designed to help you organize, prioritize, and complete your tasks seamlessly. Whether you're managing personal to-do lists or collaborating on complex projects with your team, Syncadia provides the tools you need to stay on track and achieve your goals.</p>
                 <p class="text">Join the community of productive individuals and teams who trust Syncadia to manage their tasks efficiently. Get started today and experience the difference!</p>
-                <a href="/task-manager" class="btn btn-primary">Start Now!</a>
+
+                <!-- Button linking to the task manager page -->
+                <a href="/task-manager" class="btn btn-primary" style="display: block; margin-left: 0;">Start Now!</a>
             </div>
+
+            <!-- Image content on the right side -->
             <div class="col-md-6 text-center">
                 <img src="images/main-page-image.png" alt="image" class="img-fluid">
             </div>
         </div>
     </div>
-    
-    <hr>
 
-    <!-- Footer -->
+    <!-- Footer Component -->
     <custom-footer></custom-footer>
 
+    <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

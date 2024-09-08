@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    
+    <!-- Page title -->
     <title>Add User</title>
 </head>
 <body>
+    <!-- Page header -->
     <h1>Add User</h1>
+
+    <!-- Form to add a new user -->
     <form action="/task-manager/add-user" method="POST">
+        <!-- Label and input for user name -->
         <label for="user_name">User Name:</label>
         <input type="text" name="user_name" required>
+
+        <!-- Label and input for email address -->
         <label for="email">Email: </label>
         <input type="email" name="email" required>
+
+        <!-- Label and input for password -->
         <label for="password">Password:</label>
         <input type="password" name="password" required>
+
+        <!-- Submit button to add user -->
         <button type="submit">Add User</button>
     </form>
 </body>

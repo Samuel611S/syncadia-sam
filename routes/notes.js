@@ -1,13 +1,9 @@
-/**
- * notes.js 
- */
-
 const express = require("express");
 const router = express.Router();
 
 router.post('/api/notes', async (req, res) => {
     const { content } = req.body;
-    const userId = req.user.id;  // Assuming you're using authentication
+    const userId = req.user.id;  //User authenticated
     
     try {
       const result = await db.run(
@@ -51,14 +47,12 @@ router.post('/api/deleted-notes/restore/:id', async (req, res) => {
         [noteId]
       );
   
-      // Delete the note from the deleted_notes table
+      // Deleting the note from the deleted notes table
       await db.run('DELETE FROM Deleted_Notes WHERE note_id = ?', [noteId]);
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: 'Failed to restore note' });
     }
   });
-  
-  
 // Export the router object so index.js can access it
 module.exports = router;

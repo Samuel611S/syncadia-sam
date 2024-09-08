@@ -1,5 +1,7 @@
+// Footer displayed on all pages 
 class CustomFooter extends HTMLElement {
     connectedCallback() {
+        //inner HTML content
         this.innerHTML = `
             <footer class="footer py-4">
                 <div class="container">
@@ -17,7 +19,7 @@ class CustomFooter extends HTMLElement {
                             <h5>Resources</h5>
                             <ul class="list-unstyled">
                                 <li><a href="#">Pricing</a></li>
-                                <li><a href="#">Frequently asked questions</a></li>
+                                <li><a href="#">FAQs</a></li>
                                 <li><a href="#">Help center</a></li>
                             </ul>
                         </div>
@@ -33,7 +35,7 @@ class CustomFooter extends HTMLElement {
                             <h5>Features</h5>
                             <ul class="list-unstyled">
                                 <li><a href="#">Watch Demo Here!</a></li>
-                                <li><a href="#">Upgrade</a></li>
+                                <li><a href="#">Upgrade to Pro!</a></li>
                             </ul>
                         </div>
                     </div>
@@ -42,5 +44,5 @@ class CustomFooter extends HTMLElement {
         `
     }
 }
-
+//Defining the footer to be recognized in DOM
 customElements.define('custom-footer', CustomFooter);

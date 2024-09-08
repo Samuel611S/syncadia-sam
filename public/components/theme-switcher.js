@@ -1,5 +1,7 @@
+//Theme switcher 
 class ThemeSwitcher extends HTMLElement {
   connectedCallback() {
+    //inner HTML
     this.innerHTML = `
         <div class="theme-switcher">  
             <label for="theme-select">Choose a Theme:</label>
@@ -13,5 +15,5 @@ class ThemeSwitcher extends HTMLElement {
       `;
   }
 }
-
+//Defining the 'Theme-switcher' element to be recognized in DOM
 customElements.define("theme-switcher", ThemeSwitcher);
