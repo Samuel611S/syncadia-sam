@@ -1,132 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta tags for character encoding and responsive design -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  
+  <!-- Page title -->
+  <title>Syncadia</title>
+
+  <!-- Bootstrap CSS for styling -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="styles/main.css">
-  <script src="components/theme-switcher.js"></script>
-  <script src="components/nav-menu.js"></script>
-  <script src="components/footer.js"></script>
-  <script src="scripts/timer.js"></script>
-  <script src="scripts/theme-selector.js"></script>
+
+  <!-- Custom CSS file -->
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <!-- JavaScript for custom components and theme selector -->
+  <script src="/components/nav-menu.js"></script>
+  <script src="/components/footer.js"></script>
+  <script src="/scripts/theme-selector.js"></script>
+  <script src="/components/theme-switcher.js"></script>
+  <script src="/components/new-projectadd.js"></script>
   <title>New Projects - Syncadia</title>
 </head>
+
 <body class="default-theme">
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Logo linked to home page -->
+    <a class="navbar-brand" href="/home"><img src="/images/logo.png" alt="Logo"></a>
+
+    <!-- Navigation Menu Component -->
     <div class="collapse navbar-collapse">
-        <nav-menu></nav-menu>
+      <nav-menu></nav-menu>
     </div>
-    <custom-timer></custom-timer>
+
+    <!-- Theme Switcher Component -->
     <theme-switcher></theme-switcher>
   </nav>
 
-  <div class="card-header">
-    <h2>Create New Project</h2>
-  </div>
-  <div class="card-body">
-    <form action="/projects" method="POST">
-      <div class="form-group">
-        <label for="name">Project Name:</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter project name ....." required>
+  <!-- Main Content Section -->
+  <div class="container mt-4">
+    <!-- Project Creation Card -->
+    <div class="card shadow-sm">
+      <div class="projectCard-header">
+        <h2 class="mb-0">Create New Project</h2>
       </div>
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Project Details ...."></textarea>
-        <small id="descriptionHelp" class="form-text text-muted">You have <span id="charCount">0</span> characters entered.</small>
-      </div>
-      <div class="form-group">
-        <label for="deadline">Project Deadline:</label>
-        <input type="date" class="form-control" id="deadline" name="deadline">
-      </div>
-
-      <!-- Collapsible Task Allocation Section -->
-      <h5>Allocate Tasks</h5>
-      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#task-allocation" aria-expanded="false" aria-controls="task-allocation">
-        Add Task
-      </button>
-      <div id="task-allocation" class="collapse">
-          <div id="task-container">
-              <!-- Task 1 -->
-              <div class="task-form">
-                  <div class="form-group">
-                      <label for="task_title_1">Task Title:</label>
-                      <input type="text" class="form-control" id="task_title_1" name="tasks[0][title]" placeholder="Enter task title">
-                  </div>
-                  <div class="form-group">
-                      <label for="task_content_1">Task Content:</label>
-                      <textarea class="form-control" id="task_content_1" name="tasks[0][content]" rows="2" placeholder="Task details"></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label for="task_status_1">Task Status:</label>
-                      <select class="form-control" id="task_status_1" name="tasks[0][status]">
-                          <option value="TODO">TODO</option>
-                          <option value="IN-PROGRESS">In Progress</option>
-                          <option value="DONE">Done</option>
-                      </select>
-                  </div>
-                  <div class="form-group">
-                      <label for="task_due_date_1">Task Due Date:</label>
-                      <input type="date" class="form-control" id="task_due_date_1" name="tasks[0][due_date]">
-                  </div>
-
-                <button type="button" class="btn btn-secondary mb-3" id="addTaskBtn">Add Another Task</button>
-              </div>
+      <div class="card-body">
+        <!-- Project Creation Form -->
+        <form action="/projects" method="POST">
+          <!-- Input for Project Name -->
+          <div class="form-group">
+            <label for="name">Project Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter project name..." required>
           </div>
+      
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Project details..."></textarea>
+            <small id="descriptionHelp" class="form-text text-muted">You have <span id="charCount">0</span> characters entered.</small>
+          </div>
+          
+          <!-- Input for Project Deadline -->
+          <div class="form-group">
+            <label for="deadline">Project Deadline:</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
+          </div>
+
+          <!-- Task Allocation Section -->
+          <div class="mb-3">
+            <h5>Allocate Tasks</h5>
+            <!-- Button to toggle task allocation form -->
+            <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#task-allocation" aria-expanded="false" aria-controls="task-allocation">
+              <i class="fas fa-plus"></i> Add Task
+            </button>
+            <div id="task-allocation" class="collapse mt-3">
+              <!-- Container for dynamically adding tasks -->
+              <div id="task-container">
+                <div class="task-form border p-3 mb-3">
+                  <!-- Task Title Input -->
+                  <div class="form-group">
+                    <label for="task_title_1">Task Title:</label>
+                    <input type="text" class="form-control" id="task_title_1" name="tasks[0][title]" placeholder="Enter task title">
+                  </div>
+                  <!-- Task Content Textarea -->
+                  <div class="form-group">
+                    <label for="task_content_1">Task Content:</label>
+                    <textarea class="form-control" id="task_content_1" name="tasks[0][content]" rows="2" placeholder="Task details"></textarea>
+                  </div>
+                  <!-- Task Status Dropdown -->
+                  <div class="form-group">
+                    <label for="task_status_1">Task Status:</label>
+                    <select class="form-control" id="task_status_1" name="tasks[0][status]">
+                      <option value="TODO">TODO</option>
+                      <option value="IN-PROGRESS">In Progress</option>
+                      <option value="DONE">Done</option>
+                    </select>
+                  </div>
+                  <!-- Task Due Date Input -->
+                  <div class="form-group">
+                    <label for="task_due_date_1">Task Due Date:</label>
+                    <input type="date" class="form-control" id="task_due_date_1" name="tasks[0][due_date]">
+                  </div>
+                </div>
+                <!-- Button to add additional tasks -->
+                <button type="button" class="Projectbtn-outline-secondary" id="addTaskBtn">Add Another Task</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Submit Button for Project Creation -->
+          <button type="submit" class="Projectbtn-primary btn-block">Create Project</button>
+        </form>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Create Project</button>
-    </form>
+    </div>
   </div>
-</div>
-</div>
 
-
+  <!-- Footer Component -->
   <custom-footer></custom-footer>
 
+  <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <script>
-    // Character counter for the description field
-  document.getElementById('description').addEventListener('input', function () {
-    const charCount = this.value.length;
-    document.getElementById('charCount').textContent = charCount;
-  });
 
-  // Add new task dynamically
-  let taskCount = 1;
-  document.getElementById('addTaskBtn').addEventListener('click', function () {
-    taskCount++;
-    const taskContainer = document.getElementById('task-container');
-    
-    const newTaskForm = `
-      <div class="task-form">
-        <div class="form-group">
-          <label for="task_title_${taskCount}">Task Title:</label>
-          <input type="text" class="form-control" id="task_title_${taskCount}" name="tasks[${taskCount - 1}][title]" placeholder="Enter task title">
-        </div>
-        <div class="form-group">
-          <label for="task_content_${taskCount}">Task Content:</label>
-          <textarea class="form-control" id="task_content_${taskCount}" name="tasks[${taskCount - 1}][content]" rows="2" placeholder="Task details"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="task_status_${taskCount}">Task Status:</label>
-          <select class="form-control" id="task_status_${taskCount}" name="tasks[${taskCount - 1}][status]">
-            <option value="TODO">TODO</option>
-            <option value="IN-PROGRESS">In Progress</option>
-            <option value="DONE">Done</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="task_due_date_${taskCount}">Task Due Date:</label>
-          <input type="date" class="form-control" id="task_due_date_${taskCount}" name="tasks[${taskCount - 1}][due_date]">
-        </div>
-      </div>`;
-
-    taskContainer.insertAdjacentHTML('beforeend', newTaskForm);
-  });
-  </script>
 </body>
 </html>

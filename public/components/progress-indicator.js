@@ -1,15 +1,19 @@
+//Project indicator
 class ProgressIndicator extends HTMLElement {
   // Note: probably should import it from task-column or rename them directly in db to avoid mappers
   #TypeToLabelMapper = {
-    TODO: "To-Do",
-    "IN-PROGRESS": "In-Progress",
-    DONE: "DONE",
+    TODO: "To-Do", // Mapping "TODO" column to "To-Do"
+    "IN-PROGRESS": "In-Progress", // Mapping "IN-PROGRESS" column to "In-Progress"
+    DONE: "DONE", // Mapping "DONE" column to "DONE"
   };
   connectedCallback() {
+     // Retrieve the task column type from the element's "column" attribute, defaulting to "TODO"
     const column = this.getAttribute("column") || "TODO";
+     // Map the column type to the user-friendly label using the #TypeToLabelMapper
     const label = this.#TypeToLabelMapper[column];
+    // Retrieve the task progress percentage from the "progress" attribute, defaulting to 0
     const progress = this.getAttribute("progress") || 0;
-
+    //inner HTML content
     this.innerHTML = `
                <div id="${column}-indicator">
                           <h5>${label}</h5>
@@ -32,5 +36,5 @@ class ProgressIndicator extends HTMLElement {
           `;
   }
 }
-
+//Defining the 'progress-indicator' element to be recognized in DOM
 customElements.define("progress-indicator", ProgressIndicator);

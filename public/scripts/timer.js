@@ -26,27 +26,27 @@ document.addEventListener("DOMContentLoaded", function() {
     let timerInterval;
 
     function startCountdown(minutes) {
-        let timeRemaining = minutes * 60; // Convert minutes to seconds
-        visibleTimer.style.display = "inline-block"; // Show the visible timer
+        // Converting minutes to seconds
+        let timeRemaining = minutes * 60; 
+        visibleTimer.style.display = "inline-block"; 
         startTimerBtn.style.display = "none";
 
         timerInterval = setInterval(function() {
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
-
             timeRemainingSpan.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
             if (timeRemaining <= 0) {
                 clearInterval(timerInterval);
                 alert("Time's up!");
-                visibleTimer.style.display = "none"; // Hide the timer after time is up
+                // Hide the timer after time is up
+                visibleTimer.style.display = "none"; 
                 startTimerBtn.style.display = "inline-block";
             } else {
                 timeRemaining--;
             }
         }, 1000);
     }
-
     cancelBtn.addEventListener('click', function() {
         if (timerInterval) {
             clearInterval(timerInterval);
@@ -54,18 +54,15 @@ document.addEventListener("DOMContentLoaded", function() {
             startTimerBtn.style.display = "inline-block";
         }
     });
-
     // Notepad Modal Logic
     const notepadModal = new bootstrap.Modal(document.getElementById('notepadModal'), {});
 
     document.querySelector('#open-notepad').addEventListener("click", function() {
         notepadModal.show();
     });
-
-    // Function to apply text formatting commands
+    // Text formatting commands
     function execCommand(command, value = null) {
         document.execCommand(command, false, value);
     }
-
-    window.execCommand = execCommand; // Make execCommand globally accessible
+    window.execCommand = execCommand; 
 });

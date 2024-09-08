@@ -1,5 +1,7 @@
+// Progress bar in the task manager page
 class ProgressBar extends HTMLElement {
     connectedCallback() {
+        //inner HTML content
         this.innerHTML = `
             <!-- Coin Progress Bar -->
             <div id="coin-progress-bar" class="progress mb-3">
@@ -11,5 +13,5 @@ class ProgressBar extends HTMLElement {
         `
     }
 }
-
+//Defining the progress bar element to be recognized in DOM
 customElements.define('progress-bar', ProgressBar);

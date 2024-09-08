@@ -1,5 +1,7 @@
+// Timer Modal
 class TimerModal extends HTMLElement {
     connectedCallback() {
+        //Inner HTML
         this.innerHTML = `
             <div class="modal fade" id="timerModal" tabindex="-1" aria-labelledby="timerModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -24,5 +26,5 @@ class TimerModal extends HTMLElement {
         `
     }
 }
-
+//Defining the 'Timer-modal' element to be recognized in DOM
 customElements.define('timer-modal', TimerModal);

@@ -1,5 +1,7 @@
+// Timer 
 class Timer extends HTMLElement {
     connectedCallback() {
+    //Inner HTML
       this.innerHTML = `
             <div class="timer-container">
                 <button class="btn btn-primary my-2 my-sm-0" id="start-timer-btn" type="button">Start Timer</button>
@@ -18,5 +20,5 @@ class Timer extends HTMLElement {
         `;
     }
   }
-  
+//Defining the 'Timer' element to be recognized in DOM
   customElements.define("custom-timer", Timer);

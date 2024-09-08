@@ -1,18 +1,18 @@
-let editTaskModal;
+let editTaskModal; //global variable
 
 function getCardInfo(id) {
-    const taskCard = document.getElementById(`task-card-${id}`);
-    const cardTitle = taskCard.querySelector('.card-title');
-    const cardContent = taskCard.querySelector('.card-text');
+    const taskCard = document.getElementById(`task-card-${id}`); // Getting the task card element by its ID
+    const cardTitle = taskCard.querySelector('.card-title');  // Getting the task title element
+    const cardContent = taskCard.querySelector('.card-text'); // Getting the task content element
 
-    return { cardTitle, cardContent };
+    return { cardTitle, cardContent }; // Returning an object
 }
-
+//Open the edit modal for a task or create a new task
 function openEditModal(id) {
     if (id) {
-        document.getElementById('taskId').value = id;
-        const { cardTitle, cardContent } = getCardInfo(id);
-        
+        document.getElementById('taskId').value = id; //hidden input to the task ID
+        const { cardTitle, cardContent } = getCardInfo(id); // Getting the task's title and content
+        // Task's title and content
         document.getElementById('taskTitle').value = cardTitle.textContent;
         document.getElementById('taskContent').value = cardContent.textContent;
 
@@ -29,19 +29,23 @@ function openEditModal(id) {
     editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
     editTaskModal.show();
 }
-
+//Delete a task based on its ID
 function deleteTask(id) {
     const result = TaskManager.deleteTask(id);
     if (result) {
         const task = document.getElementById(`task-card-${id}`);
         if (task) {
-            task.remove();
+            task.remove(); // Removing the task card from the DOM
         }
+        
+        // Refresh the page 
+        window.location.reload();
     }
 }
-
+//Create or update a task based on modal input
 async function updateOrCreateTask() {
     try {
+        // Get the input values from the modal
         const id = document.getElementById('taskId').value;
         const title = document.getElementById('taskTitle').value;
         const content = document.getElementById('taskContent').value;
@@ -50,8 +54,9 @@ async function updateOrCreateTask() {
         if (id) {
             const success = await TaskManager.updateTask(id, { title, content, priority });
             if (success) {
+                // Optionally update the UI directly if needed
                 const { cardTitle, cardContent } = getCardInfo(id);
-    
+
                 if (cardTitle && cardContent) {
                     cardTitle.textContent = title;
                     cardContent.textContent = content;
@@ -81,22 +86,26 @@ async function updateOrCreateTask() {
                 todoColumn.insertAdjacentHTML('beforeend', card);
             }
         }
+
+        // Close the modal
+        closeEditModal();
+        // Refresh the page
+        window.location.reload();
     } catch (error) {
         console.log(`Could not update task: ${error.message}`);
     }
-
-    closeEditModal();
 }
-
+//Close the edit modal
 function closeEditModal() {
     if (editTaskModal)
         editTaskModal.hide()
 }
-
-
+//Custom component for the task editing modal
 class TaskEditingModal extends HTMLElement {
     connectedCallback() {
-        this.innerHTML = `
+        this.innerHTML = 
+        //Innrt HTML content
+        `
             <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -134,5 +143,5 @@ class TaskEditingModal extends HTMLElement {
         `;
     }
 }
-
+//Defining the 'task-editing-modal' element to be recognized in DOM
 customElements.define('task-editing-modal', TaskEditingModal);

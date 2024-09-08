@@ -1,454 +1,548 @@
-/* Default Theme */
-.default-theme {
-    --bg-color: #f8f9fa;
-    --text-color: #000;
-    --nav-color: #f8f9fa;
-    --nav-text-color: #000;
-    --button-bg-color: #007bff;
-    --footer-bg-color: #f8f9fa;
-    --footer-text-color: #666;
-}
-
-/* Dark Theme */
-.dark-theme {
-    --bg-color: #1E1E2F;
-    /* Darker, richer background */
-    --text-color: #E0E0E0;
-    /* Softer off-white text for better contrast */
-    --nav-color: #2B2B3B;
-    /* Slightly lighter nav color to differentiate */
-    --nav-text-color: #F5F5F5;
-    /* Brighter nav text color */
-    --button-bg-color: #8C807F;
-    /* A warm coral color for buttons */
-    --button-text-color: #FFFFFF;
-    /* White text on buttons */
-    --footer-bg-color: #2B2B3B;
-    /* Matching the nav color for consistency */
-    --footer-text-color: #BBBBBB;
-    /* Lighter gray for footer text */
-    --card-bg-color: #2A2A3C;
-    /* Dark gray background for cards */
-    --card-text-color: #DCDCDC;
-    /* Light gray text for readability */
-    --link-color: #FF9F43;
-    /* Vivid orange for links */
-    --hover-bg-color: #38384F;
-    /* Slightly lighter hover background */
-    --hover-text-color: #FFFFFF;
-    /* Consistent text color on hover */
-}
-
-
-/* Pink Theme */
-.pink-theme {
-    --bg-color: #ffe4e6;
-    --text-color: #000;
-    --nav-color: #f8bbd0;
-    --nav-text-color: #880e4f;
-    --button-bg-color: #d81b60;
-    --footer-bg-color: #f8bbd0;
-    --footer-text-color: #880e4f;
-}
-
-
-
-/* Teal Theme */
-.teal-theme {
-    --bg-color: #e0f2f1;
-    --text-color: #000;
-    --nav-color: #b2dfdb;
-    --nav-text-color: #004d40;
-    --button-bg-color: #00796b;
-    --footer-bg-color: #b2dfdb;
-    --footer-text-color: #004d40;
-}
-
-/* Apply theme colors */
+/* Body styling with applying theme choice */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--bg-color);
+    font-family: 'Arial', sans-serif; 
+    background-color: var(--bg-color); 
     color: var(--text-color);
-    text-align: center;
+    text-align: center; 
 }
 
-h1,
-h2,
-h4 {
-    font-weight: bold;
-    color: var(--text-color);
+/* Header styles */
+h1, h2, h4 {
+    font-weight: bold; 
+    color: var(--text-color); 
 }
 
+/* Navbar styles */
 .navbar {
-    background-color: var(--nav-color);
-    border-bottom: 1px solid #dee2e6;
-    color: var(--nav-text-color);
-    text-align: center;
+    background-color: var(--nav-color); 
+    border-bottom: 1px solid #dee2e6; 
+    color: var(--nav-text-color); 
+    text-align: center; 
 }
 
-.footer {
-    text-align: center;
-    font-size: 12pt;
-
+.navbar-brand img, .navbar-brand .logo {
+    height: 50px; 
 }
 
-/* Navbar Styles */
-.navbar-brand img,
-.navbar-brand .logo {
-    height: 40px;
+.navbar-nav .nav-link, .nav-link {
+    font-weight: bold; 
+    color: var(--nav-text-color) !important; 
+    text-align: left; 
 }
 
-.navbar-nav .nav-link,
-.nav-link {
-    font-weight: bold;
-    color: var(--nav-text-color) !important;
-    text-align: left;
-}
-
+/* Navbar link hover effect */
 .nav-link:hover {
-    text-decoration: underline;
+    text-decoration: underline; 
 }
 
-/* Sidebar Styles */
+/* Sidebar styles */
 .sidebar {
-    padding: 20px;
-    border-right: 1px solid #dee2e6;
-    min-width: 150px;
+    padding: 20px; 
+    border-right: 1px solid #dee2e6; 
+    min-width: 150px; 
     background-color: transparent;
 }
 
 .sidebar .nav-link {
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
 }
 
-/* Main Content Styles */
-.main-content,
-.container {
-    margin-top: 50px;
-    font-weight: normal;
-}
-
-.text {
-    font-weight: normal;
-    text-align: left;
-}
-
-.textsub {
-    font-weight: normal;
-    text-align: center;
-    font-size: 20pt;
-}
-
-/* Card Styles */
-/*
-.card {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid #dee2e6;
-}
-
-.card-body, .card-title {
-    text-align: center;
-    font-weight: bold;
-}
-*/
+/* Theme Variables */
 
 /* Default Theme */
-.default-theme .card {
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #dee2e6;
+/* Default Theme */
+.default-theme {
+    --bg-color: #f8f9fa; 
+    --text-color: #000;
+    --nav-color: #f8f9fa; 
+    --nav-text-color: #000; 
+    --button-bg-color: #f8bbd0; 
+    --button-hover-bg-color: #d35c86; 
+    --footer-bg-color: #f8f9fa; 
+    --footer-text-color: #666; 
+    --button-text-color: #000; 
 }
 
 /* Dark Theme */
-.dark-theme .card {
-    background-color: #343a40;
-    color: #ffffff;
-    border: 1px solid #dee2e6;
+.dark-theme {
+    --bg-color: #1E1E2F; 
+    --text-color: #E0E0E0; 
+    --nav-color: #2B2B3B; 
+    --nav-text-color: #F5F5F5; 
+    --button-bg-color: #8C807F; 
+    --button-text-color: #FFFFFF; 
+    --footer-bg-color: #2B2B3B; 
+    --footer-text-color: #BBBBBB; 
+    --card-bg-color: #2A2A3C; 
+    --card-text-color: #DCDCDC; 
+    --link-color: #FF9F43; 
+    --hover-bg-color: #38384F; 
+    --hover-text-color: #FFFFFF;
 }
 
 /* Pink Theme */
-.pink-theme .card {
-    background-color: #ffe4e6;
-    color: #000000;
-    border: 1px solid #880e4f;
+.pink-theme {
+    --bg-color: #ffe4e6; 
+    --text-color: #000; 
+    --nav-color: #f8bbd0; 
+    --nav-text-color: #880e4f; 
+    --button-bg-color: #d81b60; 
+    --footer-bg-color: #f8bbd0; 
+    --footer-text-color: #880e4f; 
 }
 
 /* Teal Theme */
+.teal-theme {
+    --bg-color: #e0f2f1; 
+    --text-color: #000; 
+    --nav-color: #b2dfdb; 
+    --nav-text-color: #004d40; 
+    --button-bg-color: #00796b;
+    --footer-bg-color: #b2dfdb; 
+    --footer-text-color: #004d40; 
+}
+
+/* Dark theme card styles */
+.dark-theme .card {
+    background-color: #343a40; 
+    color: #ffffff; 
+    border: 1px solid #dee2e6; 
+}
+
+/* Pink theme card styles */
+.pink-theme .card {
+    background-color: #ffe4e6; 
+    color: #000000; 
+    border: 1px solid #880e4f; 
+}
+
+/* Teal theme card styles */
 .teal-theme .card {
-    background-color: #e0f2f1;
-    color: #000000;
-    border: 1px solid #00796b;
+    background-color: #e0f2f1; 
+    color: #000000; 
+    border: 1px solid #00796b; 
 }
 
-/* General card styles */
+/* General card body styles */
 .card-body {
-    padding: 20px;
+    padding: 20px; 
 }
 
+/* General card title styles */
 .card-title {
-    font-weight: bold;
+    font-weight: bold; 
 }
 
+/* General card text styles */
 .card-text {
-    font-size: 16px;
+    font-size: 16px; 
 }
 
 
-/* Image Styles */
-img.img-fluid,
-.text-center img {
-    max-width: 100%;
-    height: auto;
+/* General card body styles */
+.card-body {
+    padding: 20px; 
+}
 
+/* General card title styles */
+.card-title {
+    font-weight: bold; 
+}
+
+/* General card text styles */
+.card-text {
+    font-size: 16px; 
+}
+
+/* Main content styles */
+.main-content, .container {
+    margin-top: 50px; 
+    font-weight: normal;
 }
 
 
-/* Button Styles */
+/* Text styles */
+.text, .textsub {
+    font-weight: normal;
+    text-align: left; 
+}
+
+.textsub {
+    font-size: 20pt; 
+}
+
+/* Button styles */
+.btn-primary, .btn-sec {
+    background-color: var(--button-bg-color); 
+    margin-right: auto; 
+}
+
 .btn-primary {
-    background-color: var(--button-bg-color);
-    display: block;
-    margin-right: auto;
-    width: fit-content;
-}
-
-.btn-sec {
-    background-color: var(--button-bg-color);
-    margin-right: auto;
-    width: fit-content;
+    background-color: var(--button-bg-color); 
+    width: 150px;
+    height: 40px; 
+    border-radius: 6%; 
+    display: inline-block; /* Ensures it's inline and doesn't take full width */
+    margin-left: 0; /* Remove any left margin */
+    margin-right: auto; /* Keep it left-aligned */
 }
 
 
+/* Button hover styles (shared by primary and secondary buttons) */
+.btn-primary:hover, .btn-sec:hover {
+    background-color: var(--button-hover-bg-color); 
+}
+
+/* Link button styles */
 .btn-link {
-    padding: 0;
-    color: var(--nav-text-color);
-    font-weight: bold;
+    padding: 0; 
+    color: var(--nav-text-color); 
+    font-weight: bold; 
 }
 
-/* Footer Styles */
-footer,
-.footer {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    margin-top: 100px;
-
+/* Footer styles */
+footer, .footer {
+    background-color: var(--footer-bg-color); 
+    color: var(--footer-text-color); 
+    padding: 40px 0; 
+    text-align: center;
+    font-size: 12pt;
 }
 
+/* Footer title styles */
 footer h5 {
-    font-weight: bold;
+    font-weight: 700; 
+    color: #343a40; 
+    margin-bottom: 20px; 
 }
 
+/* Footer list styles */
 footer ul {
-    padding-left: 0;
-    list-style: none;
+    padding-left: 0; 
+    list-style: none; 
 }
 
 footer ul li a {
-    color: var(--nav-text-color);
-    text-decoration: none;
-
+    color: #6c757d; 
+    text-decoration: none; 
+    display: inline-block; 
+    margin-bottom: 10px; 
+    font-size: 16px;
 }
 
+/* Footer link icon styles */
+footer ul li a i {
+    margin-right: 8px; 
+    font-size: 18px; 
+}
+
+/* Footer link hover styles */
 footer ul li a:hover {
     text-decoration: underline;
+    color: #343a40; 
 }
 
+/* Footer column styles for smaller screens */
+.footer .col-md-3 {
+    margin-bottom: 20px; 
+}
+
+/* Circular progress bar styles */
 .progress-circle {
-    display: inline-block;
-    margin: 20px auto;
-    width: 100px;
-    height: 100px;
+    display: inline-block; 
+    margin: 20px auto; 
+    width: 100px; 
+    height: 100px; 
 }
 
+/* Circular chart styles */
 .circular-chart {
-    display: block;
-    margin: 10px auto;
+    display: block; 
+    margin: 10px auto; 
     max-width: 100%;
-    max-height: 250px;
+    max-height: 250px; 
 }
 
-.circle-bg {
-    fill: none;
-    stroke: #eee;
-    stroke-width: 3.8;
-}
-
+/* Foreground circle for progress */
 .circle {
-    fill: none;
-    stroke-width: 2.8;
-    stroke-linecap: round;
-    animation: progress 1s ease-out forwards;
+    fill: none; 
+    stroke-linecap: round; 
+    animation: progress 1s ease-out forwards, change-pink-shade 3s ease-in-out infinite; /* Animations */
 }
 
+/* Keyframe for animations */
 @keyframes progress {
     0% {
-        stroke-dasharray: 0 100;
+        stroke-dasharray: 0 100; 
     }
 }
 
-.pink .circle {
-    stroke: #ff007f;
+/* Keyframe for pink shade animation */
+@keyframes change-pink-shade {
+    0% {
+        stroke: #74003a; 
+    }
+    50% {
+        stroke: #ff0055; 
+    }
+    100% {
+        stroke: #c5749c; 
+    }
 }
 
+/* Progress percentage text */
 .percentage {
-    fill: #666;
-    font-family: sans-serif;
+    fill: #666; 
+    font-family: sans-serif; 
     font-size: 0.5em;
-    text-anchor: middle;
+    font-weight: normal; 
+    text-anchor: middle; 
 }
 
-
-/* Timer Box */
-.timer-box {
-    width: 150px;
-    text-align: center;
-    font-size: 16px;
-    padding: 5px;
+/* Timer box and container styles */
+.timer-box, .timer-container {
+    width: 150px; 
+    text-align: center; 
 }
 
 .timer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 50px;
+    display: flex; 
+    justify-content: flex-end; 
+    margin-bottom: 10px; 
+    margin-top: -10px; 
 }
 
-#timer-cancel-btn {
-    float: right;
-    width: 32px;
-    height: 24px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#timer-cancel-btn svg {
-    width: 50%;
-    height: auto;
-    display: block;
-}
-
-
-/* Notepad Styles */
-.toolbar button,
-.toolbar select {
-    margin-right: 5px;
-    font-size: 1.2rem;
+/* Notepad and toolbar styles */
+.toolbar button, .toolbar select {
+    margin-right: 5px; 
+    font-size: 1.2rem; 
 }
 
 #notepadContent {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    height: 300px;
-    overflow-y: auto;
+    background-color: var(--bg-color); 
+    color: var(--text-color); 
+    width: 100%; 
+    max-width: 600px; 
+    margin: auto; 
+    height: 300px; 
+    overflow-y: auto; 
 }
 
+/* Card column and task card styles */
 .card-column {
-    min-height: 400px;
+    min-height: 400px; 
     padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f8f9fa;
+    border: 1px solid #ddd; 
+    background-color: #f8f9fa; 
 }
 
 .card {
-    margin-bottom: 10px;
-    cursor: move;
+    margin-bottom: 10px; 
+    cursor: move; 
 }
 
 .card-column.drag-over {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1); 
 }
 
-/* Style the delete button */
+/* Delete task button styles */
 .delete-task-btn {
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    color: #ffffff; 
 }
 
-/* Optional: adjust the size of the SVG */
 .delete-task-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 20px; 
+    height: 20px; 
 }
 
-.card-img-top {
-    width: 100%;
-    height: 100px;
-}
-
-#calendar {
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-}
-
-#calendar-modal {
-    padding: 0;
-}
-
+/* Coin progress bar styles */
 #coin-progress-bar {
-    height: 30px;
-    background-color: #F1F1F1;
+    height: 30px; 
+    background-color: #F1F1F1; 
 }
 
 #coin-progress {
-    background-color: gold;
+    background-color: lightpink; 
 }
 
-#task-message {
-    font-size: 18px;
-    color: green;
+/* Miscellaneous styles */
+img.img-fluid, .text-center img {
+    max-width: 100%; 
+    height: auto; 
 }
 
-/* Style for the password toggle button */
+#calendar {
+    width: 100%; 
+    height: 100%; 
+    min-height: 500px; 
+}
+
+/* Password toggle button styles */
 .toggle-password {
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    outline: none;
+    cursor: pointer; 
+    border: none; 
+    background-color: transparent; 
+    outline: none; 
 }
 
 .toggle-password i {
-    font-size: 1.25rem; /* Adjust icon size if needed */
-    color: #495057; /* Color to match the form control text color */
+    font-size: 1.25rem; 
+    color: #495057;
 }
 
-/* Ensure the button is properly aligned with the input field */
 .input-group .input-group-append {
-    display: flex;
-    align-items: center;
+    display: flex; 
+    align-items: center; 
 }
 
-/* Optional: Add focus style for better UX */
 .input-group:focus-within .toggle-password {
-    box-shadow: inset 0 0 0 2px rgba(38, 143, 255, 0.5);
+    box-shadow: inset 0 0 0 2px rgba(251, 94, 196, 0.5); 
 }
 
-/* Optional: Hover effect for the button */
 .toggle-password:hover {
-    background-color: #e9ecef;
-    border-radius: 0.25rem;
+    background-color: #e9ecef; 
+    border-radius: 0.25rem; 
 }
 
-/* Optional: Active state styles */
 .toggle-password:active {
     background-color: #dee2e6;
 }
-.pill-badge {
-    display: inline-block;
-    padding: 0.2em 0.6em;
-    font-size: 0.75em;
-    font-weight: 500;
-    color: #fff;
-    border-radius: 9999px; /* Fully rounded for pill shape */
-    margin-left: 0.5em;
-  }
 
-.bg-primary { background-color: #007bff; }
-.bg-secondary { background-color: #6c757d; }
-.bg-danger { background-color: #dc3545; }
+/* Custom button styles */
+.btn-signup, .Projectbtn-primary {
+    background-color: #f8bbd0 !important; 
+    color: white; 
+    border-color: #d35c86; 
+    padding: 10px; 
+}
+
+.Projectbtn-outline-secondary {
+    background-color: #f8bbd0; 
+    border-color: #f8bbd0; 
+    color: #d35c86; 
+    padding: 6px; 
+    float: left; 
+    margin-right: 10px; 
+    margin-bottom: 10px; 
+}
+
+.Projectbtn-outline-secondary:hover, .Projectbtn-primary:hover {
+    background-color: #dca2b3; 
+    border-color: #dca2b3; 
+}
+
+/* Quiz and modal styles */
+.quizModal-content, .resultModal-content, .feedbackModal-content {
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.quizModal-header, .resultModal-header, .feedbackModal-header {
+    background-color: #d35c86; 
+    color: #f8bbd0; 
+    padding: 10px; 
+    height: 40px; 
+}
+
+.quizModal-footer, .resultModal-footer, .feedbackModal-footer {
+    background-color: #f8bbd0; 
+}
+
+/* Feature section styles */
+.feature-section {
+    padding: 40px 0; 
+    background-color: #ffffff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+.feature-section img {
+    max-width: 80%; 
+    height: auto; 
+    border-radius: 8px; 
+}
+
+.feature-section h2 {
+    font-size: 1.5rem; 
+    color: #333; 
+}
+
+.feature-section p {
+    font-size: 0.9rem; 
+    color: #555; 
+}
+
+/* Welcome message styles */
+.welcome-message {
+    font-size: 24px; 
+    font-weight: bold; 
+    text-align: left; 
+    color: var(--text-color); /* Adapts to the theme's text color */
+}
+
+/* Custom button for restore functionality */
+.btn-success {
+    background-color: #f8bbd0 !important; /* Light pink background */
+    border-color: #f8bbd0 !important; /* Pink border */
+    color: #fff !important; /* White text */
+}
+
+/* Hover state for the restore button */
+.btn-success:hover {
+    background-color: #d35c86 !important; /* Darker pink on hover */
+    border-color: #f8bbd0 !important;
+}
+
+/* Feedback modal Content */
+.feedbackModal-content {
+    background-color: #f8f9fa; /* Light background for modal content */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    padding: 20px;
+}
+
+/* Feedback modal Header */
+.feedbackModal-header {
+    border-bottom: none; 
+    padding: 10px;
+    height: 50px;;
+}
+
+/* Feedback modal Title */
+.feedbackModal-title {
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    color: #343a40; 
+}
+
+/* Feedback modal Body */
+.feedbackModal-body {
+    font-size: 1.1rem; 
+    color: #6c757d; 
+    padding: 20px; 
+    text-align: center; 
+}
+
+/* Modal Footer */
+.feedbackModal-footer {
+    border-top: none; 
+    justify-content: center; 
+}
+
+/* Submit Button Style */
+.feedbackModal-btn {
+    background-color: #f8bbd0; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    border-radius: 8px; 
+}
+
+.feedbackModal-btn:hover {
+    background-color: #d35c86; 
+}

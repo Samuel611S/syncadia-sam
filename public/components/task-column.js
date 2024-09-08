@@ -1,15 +1,17 @@
+//Task column
 class TaskColumn extends HTMLElement {
   #TypeToLabelMapper = {
-    TODO: "To-Do",
-    "IN-PROGRESS": "In-Progress",
-    DONE: "Done",
+    TODO: "To-Do", // Mapping "TODO" to "To-Do"
+    "IN-PROGRESS": "In-Progress", // Mapping "IN-PROGRESS" to "In-Progress"
+    DONE: "Done", // Mapping "DONE" to "Done"
   };
 
   #NO_TASKS_AVAILABLE = "<p>No tasks available.</p>";
 
   #constructTaskCard = (task) => {
     try {
-      const priority = task.priority || 'primary'; // Default to 'primary' if undefined
+      //constructing an individual task card for each task
+      const priority = task.priority || 'primary'; 
       return `
         <div class="card task-card" id="task-card-${task.id}" draggable="true" data-task-id="${task.id}" onclick="openEditModal('${task.id}', '${task.title}', '${task.content}')">
           <div class="card-body">
@@ -27,6 +29,7 @@ class TaskColumn extends HTMLElement {
         </div>
       `;
     } catch (error) {
+      // Logging errors
       console.log(error);
       return "";
     }
@@ -61,7 +64,7 @@ class TaskColumn extends HTMLElement {
       const type = this.getAttribute("type") ?? "no type";
       const label = this.#TypeToLabelMapper[type];
       const tasks = JSON.parse(this.getAttribute("tasks"));
-
+      //inner html
       this.innerHTML = `
         <div>
           <h5>${label}</h5>
@@ -72,10 +75,11 @@ class TaskColumn extends HTMLElement {
         </div>
       `;
     } catch (error) {
+       // Logging errors
       console.log(error);
       this.innerHTML = this.#NO_TASKS_AVAILABLE;
     }
   }
 }
-
+//Defining the 'task-column' element to be recognized in DOM
 customElements.define("task-column", TaskColumn);
