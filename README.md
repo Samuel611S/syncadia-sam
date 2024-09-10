@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# syncadia-sam
-=======
 ## Syncadia ##
 ### Task Management System ###
 
@@ -31,4 +28,3 @@ Test the app by browsing to the following route:
 You can also run: 
 ```npm run clean-db``` to delete the database on Mac or Linux before rebuilding it for a fresh start
 ```npm run clean-db-win``` to delete the database on Windows before rebuilding it for a fresh start
->>>>>>> sam-6
