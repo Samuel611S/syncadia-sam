@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Bootstrap CSS for styling and Font Awesome for icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <!-- Link to custom CSS file -->
+  <link rel="stylesheet" href="styles/main.css">
+  
+  <!-- Custom scripts for theme switcher, navigation, and footer components -->
+  <script src="components/theme-switcher.js"></script>
+  <script src="components/nav-menu.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="components/editt.js"></script>
+  
+  <!-- Script for timer functionality and theme selection -->
+  <script src="scripts/timer.js"></script>
+  <script src="scripts/theme-selector.js"></script>
+
+  <!-- Page title -->
+  <title>New Projects - Syncadia</title>
+</head>
+<body class="default-theme">
+  <!-- Navbar with custom components -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="collapse navbar-collapse">
+        <!-- Custom navigation menu component -->
+        <nav-menu></nav-menu>
+    </div>
+    <!-- Custom timer component -->
+    <custom-timer></custom-timer>
+    <!-- Theme switcher component -->
+    <theme-switcher></theme-switcher>
+  </nav>
+
+  <!-- Main content container -->
+  <div class="container mt-4">
+    <h2>Edit Project</h2>
+    
+    <!-- Form for editing the project -->
+    <form action="/projects/<%= project.id %>/edit" method="POST">
+      <!-- Input for the project name -->
+      <div class="form-group">
+        <label for="name">Project Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= project.name %>" required>
+      </div>
+      
+      <!-- Textarea for the project description -->
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" rows="3"><%= project.description %></textarea>
+      </div>
+      
+      <!-- Input for the project deadline -->
+      <div class="form-group">
+        <label for="deadline">Deadline:</label>
+        <input type="date" class="form-control" id="deadline" name="deadline" value="<%= project.deadline %>">
+      </div>
+      
+      <!-- Managing tasks in the project -->
+      <div class="form-group">
+        <label for="tasks">Tasks:</label>
+        <div id="tasks">
+          <% tasks.forEach(task => { %>
+            <div class="task">
+              <input type="hidden" name="tasks[<%= task.id %>][id]" value="<%= task.id %>">
+              
+              <!-- Input for the task title -->
+              <div class="form-group">
+                <label for="title-<%= task.id %>">Title:</label>
+                <input type="text" class="form-control" id="title-<%= task.id %>" name="tasks[<%= task.id %>][title]" value="<%= task.title %>" required>
+              </div>
+              
+              <!-- Textarea for the task content -->
+              <div class="form-group">
+                <label for="content-<%= task.id %>">Content:</label>
+                <textarea class="form-control" id="content-<%= task.id %>" name="tasks[<%= task.id %>][content]" rows="3"><%= task.content %></textarea>
+              </div>
+              
+              <!-- Input for task status -->
+              <div class="form-group">
+                <label for="status-<%= task.id %>">Status:</label>
+                <input type="text" class="form-control" id="status-<%= task.id %>" name="tasks[<%= task.id %>][status]" value="<%= task.status %>" required>
+              </div>
+              
+              <!-- Input for the task due date -->
+              <div class="form-group">
+                <label for="due_date-<%= task.id %>">Due Date:</label>
+                <input type="date" class="form-control" id="due_date-<%= task.id %>" name="tasks[<%= task.id %>][due_date]" value="<%= task.due_date %>">
+              </div>
+            </div>
+          <% }) %>
+        </div>
+        
+        <!-- Button to add a new task dynamically -->
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#task-allocation" aria-expanded="false" aria-controls="task-allocation">
+          Add Task
+        </button>
+
+        <!-- Section for adding new tasks -->
+        <div id="task-allocation" class="collapse">
+            <div id="task-container">
+                <!-- Form for the new task -->
+                <div class="task-form">
+                    <div class="form-group">
+                        <label for="task_title_1">Task Title:</label>
+                        <input type="text" class="form-control" id="task_title_1" name="tasks[0][title]" placeholder="Enter task title">
+                    </div>
+                    <div class="form-group">
+                        <label for="task_content_1">Task Content:</label>
+                        <textarea class="form-control" id="task_content_1" name="tasks[0][content]" rows="2" placeholder="Task details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="task_status_1">Task Status:</label>
+                        <select class="form-control" id="task_status_1" name="tasks[0][status]">
+                            <option value="TODO">TODO</option>
+                            <option value="IN-PROGRESS">In Progress</option>
+                            <option value="DONE">Done</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task_due_date_1">Task Due Date:</label>
+                        <input type="date" class="form-control" id="task_due_date_1" name="tasks[0][due_date]">
+                    </div>
+
+                  <!-- Button to dynamically add more tasks -->
+                  <button type="button" class="btn btn-secondary mb-3" id="addTaskBtn">Add Another Task</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      <!-- Submit button for updating the project -->
+      <button type="submit" class="btn btn-primary">Update Project</button>
+    </form>
+  </div>
+
+  <!-- Custom footer component -->
+  <custom-footer></custom-footer>
+
+  <!-- JavaScript dependencies: jQuery, Popper.js, Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+</body>
+</html>

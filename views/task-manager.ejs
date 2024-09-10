@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
+    <title>Syncadia</title>
+
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Link to custom CSS file -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- FullCalendar CSS for calendar functionality -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+
+    <!-- JavaScript components for custom functionality -->
+    <script src="components/theme-switcher.js"></script>
+    <script src="components/timer.js"></script>
+    <script src="components/nav-menu.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/progress-indicator.js"></script>
+    <script src="components/task-editing-modal.js"></script>
+    <script src="components/task-column.js"></script>
+    <script src="components/timer-modal.js"></script>
+    <script src="components/notepad-modal.js"></script>
+    <script src="components/progress-bar.js"></script>
+
+    <!-- Additional scripts for handling functionalities -->
+    <script src="scripts/progress-bar.js"></script>
+    <script src="scripts/drag.js"></script>
+    <script src="scripts/task-manager.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/theme-selector.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/notes.js"></script>
+</head>
+
+<body class="default-theme">
+    <!-- Navigation bar with logo, navigation menu, and theme switcher -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/home"><img src="/images/logo.png" alt="Logo"></a>
+        <div class="collapse navbar-collapse">
+            <nav-menu></nav-menu>
+        </div>
+        <theme-switcher></theme-switcher>
+    </nav>
+
+    <!-- Main content section -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Sidebar with navigation links and feedback button -->
+            <div class="col-md-2 sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#">Search</a>
+                    <a class="nav-link" href="#" id="open-notepad">Notes</a>
+                    <a class="nav-link" href="#" id="open-calendar" data-toggle="modal" data-target="#calendarModal">Calendar</a>
+                    <a class="nav-link" href="/projects">My Projects</a>
+                    <a class="nav-link" href="#" id="open-deleted-notes" data-toggle="modal" data-target="#deletedNotesModal">Deleted Notes</a>
+                </nav>
+                <!-- Feedback button -->
+                <button class="btn-primary" onclick="window.location.href='/feedback';">Give us feedback!</button>
+            </div>
+
+            <!-- Main content for task columns and progress tracking -->
+            <div class="col-md-10 main-content">
+                <div class="timer-container">
+                    <custom-timer></custom-timer> <!-- Custom timer component -->
+                </div>
+                <h2 class="mb-5">Start Planning!</h2>
+                <progress-bar></progress-bar> <!-- Progress bar component -->
+
+                <!-- Task columns for TODO, IN-PROGRESS, and DONE tasks -->
+                <div class="row mb-5">
+                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="TODO"></task-column>
+                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="IN-PROGRESS"></task-column>
+                    <task-column class="col-md-4" tasks="<%= JSON.stringify(tasks) %>" type="DONE"></task-column>
+                </div>
+
+                <!-- Section for progress tracking indicators -->
+                <h2>Track Your Progress Here!</h2>
+                <div class="row text-center">
+                    <progress-indicator class="col-md-4" column="TODO" progress="<%= progress.todo %>"></progress-indicator>
+                    <progress-indicator class="col-md-4" column="IN-PROGRESS" progress="<%= progress.inProgress %>"></progress-indicator>
+                    <progress-indicator class="col-md-4" column="DONE" progress="<%= progress.completed %>"></progress-indicator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notepad Modal for taking notes -->
+    <notepad-modal></notepad-modal>
+
+    <!-- Deleted Notes Modal for viewing deleted notes -->
+    <div class="modal fade " id="deletedNotesModal" tabindex="-1" aria-labelledby="deletedNotesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletedNotesModalLabel">Deleted Notes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="deletedNotesList" class="list-group">
+                        <!-- Deleted notes will be appended here dynamically -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Modal for viewing calendar -->
+    <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calendarModalLabel">Calendar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="calendar" class="border p-3" style="min-height: 500px;"></div> <!-- Calendar will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task/Note Modal for creating tasks and notes -->
+    <div class="modal fade" id="addTaskNoteModal" tabindex="-1" aria-labelledby="addTaskNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskNoteModalLabel">Add Task/Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTaskNoteForm">
+                        <div class="form-group">
+                            <label for="taskNoteTitle">Title</label>
+                            <input type="text" id="taskNoteTitle" class="form-control" placeholder="Enter title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskNoteDescription">Description</label>
+                            <textarea id="taskNoteDescription" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                        </div>
+                        <input type="hidden" id="selectedDate"> <!-- Hidden field for the selected date -->
+                        <button type="submit" class="btn btn-primary">Add to Calendar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer modal for setting timers -->
+    <timer-modal></timer-modal>
+
+    <!-- Task editing modal for modifying tasks -->
+    <task-editing-modal></task-editing-modal>
+
+    <!-- Horizontal rule for separating footer -->
+    <hr>
+
+    <!-- Footer component -->
+    <custom-footer></custom-footer>
+
+    <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- FullCalendar JS for calendar functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+</body>
+</html>

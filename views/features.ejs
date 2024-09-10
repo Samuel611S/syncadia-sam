@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
+    <title>Syncadia - Features</title>
+
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome icons for additional visual elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Link to custom CSS file -->
+    <link href="styles/main.css" rel="stylesheet">
+
+    <!-- Scripts for theme switcher, navigation menu, and footer components -->
+    <script src="components/theme-switcher.js"></script>
+    <script src="components/nav-menu.js"></script>
+    <script src="components/footer.js"></script>
+    
+    <!-- Script for theme selection functionality -->
+    <script src="scripts/theme-selector.js"></script>
+</head>
+<body class="default-theme">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Logo linked to task manager -->
+        <a class="navbar-brand" href="/task-manager">
+            <img src="/images/logo.png" alt="Logo" style="max-width: 150px;">
+        </a>
+
+        <!-- Navigation Menu Component -->
+        <div class="collapse navbar-collapse">
+            <nav-menu></nav-menu>
+        </div>
+
+        <!-- Theme Switcher Component -->
+        <theme-switcher></theme-switcher>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mt-5">
+        <!-- Section Header -->
+        <h1 class="text-center">Explore Our Powerful Features</h1>
+        <p class="lead text-center mb-4">
+            Discover how our task management tool can help you streamline your workflow, enhance collaboration, and boost productivity!
+        </p>
+
+        <!-- Task Creation and Management Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Task Creation and Management</h2>
+                    <p>Create, organize, and prioritize your tasks with ease. Set due dates, assign tasks to team members, and track progress in real-time.</p>
+                    <p>Work on your own tasks or collaborate with others. Backup deleted notes, take notes, use a calendar to track tasks/events, and more. All available in the FREE version!</p>
+                </div>
+                <!-- Image for Task Creation and Management -->
+                <div class="col-md-6">
+                    <img src="images/task-icon.png" alt="Task Icon" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Token Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <!-- Image for Game Token Feature -->
+                    <img src="images/coin-icon.png" alt="Token Icon" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Game Token</h2>
+                    <p>Complete tasks and watch your character evolve! Earn tokens and unlock new abilities or customizations as you stay productive.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note Taking Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Note Taking</h2>
+                    <p>Keep all your important notes organized and accessible. Our tool allows you to jot down ideas, to-dos, and more, with easy retrieval and management.</p>
+                </div>
+                <!-- Image for Note Taking Feature -->
+                <div class="col-md-6">
+                    <img src="images/featuresImageNote.png" alt="Note Icon" class="feature-section" >
+                </div>
+            </div>
+        </div>
+
+        <!-- Productivity Quiz Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <!-- Image for Productivity Quiz Feature -->
+                    <img src="images/featuresImageQuiz.png" alt="Quiz Icon" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Productivity Quiz</h2>
+                    <p>Take our quiz to discover which productivity method works best for you. Enhance your productivity with tailored recommendations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tracking Progress Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Tracking Progress</h2>
+                    <p>Monitor the progress of your tasks and projects with our intuitive tracking system. Stay on top of deadlines and milestones effortlessly.</p>
+                </div>
+                <!-- Image for Tracking Progress Feature -->
+                <div class="col-md-6">
+                    <img src="images/featuresImageProgress.png" alt="Progress Icon" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <!-- Adding New Projects Section -->
+        <div class="feature-section mb-4">
+            <div class="row align-items-center">
+                <!-- Image for Adding New Projects Feature -->
+                <div class="col-md-6">
+                    <img src="images/featuresImageProject.png" alt="Projects Icon" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Adding New Projects</h2>
+                    <p>Easily add and manage new projects. Organize your tasks, set goals, and track your project's progress all in one place.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <custom-footer></custom-footer>
+
+    <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for character encoding and responsive design -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS for styling -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <!-- Link to custom CSS file -->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- JavaScript for custom components and functionalities -->
+  <script src="components/theme-switcher.js"></script>
+  <script src="components/nav-menu.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="scripts/timer.js"></script>
+  <script src="scripts/theme-selector.js"></script>
+  <script src="scripts/quiz.js"></script>
+
+  <!-- Page title -->
+  <title>Quiz - Syncadia</title>
+</head>
+
+<body class="default-theme">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Logo linked to task manager page -->
+    <a class="navbar-brand" href="/task-manager"><img src="/images/logo.png" alt="Logo"></a>
+
+    <!-- Navigation Menu Component -->
+    <div class="collapse navbar-collapse">
+      <nav-menu></nav-menu>
+    </div>
+
+    <!-- Theme Switcher Component -->
+    <theme-switcher></theme-switcher>
+  </nav>
+
+  <!-- Main Content Section -->
+  <div class="container mt-4">
+    <!-- Quiz introduction -->
+    <h2 class="mb-3">What Productivity Method Works Best For You?</h2>
+    <p>Take our quick quiz to find out how you can enhance your productivity!</p>
+
+    <!-- Button to trigger quiz modal -->
+    <button id="quizButton" class="btn btn-sec mb-4">Take Quiz!</button>
+
+    <!-- Exploring different productivity methods -->
+    <h4 class="mb-3">Want To Explore On Your Own?</h4>
+    <div class="row">
+      <!-- Card for Pomodoro Technique -->
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">The Pomodoro® Technique</h5>
+            <p class="card-text">Over 2 million people have already used the Pomodoro® Technique to transform their lives.</p>
+            <a href="https://www.pomodorotechnique.com/" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card for Time Blocking -->
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Time Blocking</h5>
+            <p class="card-text">...and its cousins task batching and day theming. Control your schedule so it doesn't control you.</p>
+            <a href="https://todoist.com/productivity-methods/time-blocking" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card for WorkStatus -->
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">WorkStatus</h5>
+            <p class="card-text">Top 10 Clever Productivity Methods that Actually Get Results. The average worker spends only a third of their day working.</p>
+            <a href="https://www.workstatus.io/blog/workforce-management/top-clever-productivity-methods-that-actually-get-results/" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal fade" id="quizModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quizModalLabel">Productivity Quiz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Quiz Form -->
+          <form id="quizForm">
+            <!-- Loop through quiz questions -->
+            <% questions.forEach((question, index) => { %>
+              <div class="form-group">
+                <!-- Display each question with answer options -->
+                <label for="question<%= index + 1 %>"><%= question.question %></label>
+                <select id="question<%= index + 1 %>" name="question<%= index + 1 %>" class="form-control">
+                  <option value="option1"><%= question.option1 %></option>
+                  <option value="option2"><%= question.option2 %></option>
+                  <option value="option3"><%= question.option3 %></option>
+                  <option value="option4"><%= question.option4 %></option>
+                </select>
+              </div>
+            <% }); %>
+            <!-- Submit Button -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button for the modal -->
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Result Modal -->
+  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">Quiz Submitted!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Result Message for quiz submission -->
+          <p id="resultMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <!-- Close button for the result modal -->
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Component -->
+  <custom-footer></custom-footer>
+
+  <!-- JavaScript dependencies: jQuery, Popper.js, and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
